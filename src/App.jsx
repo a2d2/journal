@@ -98,7 +98,7 @@ export default function App() {
         alphaTest={0.65}
         scale={20}
         rotation={[0, Math.PI, 0]}
-        position={[0, -0.3, -0.2]}
+        position={[0, -0.14, -0.14]}
       >
         <RandomizedLight
           amount={4}
