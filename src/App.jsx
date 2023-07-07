@@ -4,24 +4,33 @@ import {
   Environment,
   ContactShadows,
   SpotLight,
+  useGLTF,
   Center,
   AccumulativeShadows,
   RandomizedLight,
 } from '@react-three/drei';
-import { useGLTF } from '@react-three/drei';
+
 import {
   AiOutlineHighlight,
   AiOutlineShopping,
   AiFillCamera,
   AiOutlineArrowLeft,
 } from 'react-icons/ai';
+import { useSnapshot } from 'valtio';
+import { state } from './store';
+import * as THREE from 'three';
 import { useRef } from 'react';
 import { easing } from 'maath';
 // import { Model } from './libreta4';
 
 export default function App() {
+  const snap = useSnapshot(state);
   function Model(props) {
     const { nodes, materials } = useGLTF('./models/libreta5.glb');
+    useFrame((state, delta) =>
+      easing.dampC(materials.Material_0.color, snap.selectedColor, 0.25, delta)
+    );
+    // materials.Material_0.color = new THREE.Color(snap.selectedColor);
     return (
       <group {...props} dispose={null}>
         <group position={[-0.064, -0.021, 0.034]} scale={0.007}>
@@ -144,6 +153,7 @@ export default function App() {
                 key={color}
                 className="circle"
                 style={{ background: color }}
+                onClick={() => (state.selectedColor = color)}
               ></div>
             ))}
           </div>
@@ -156,13 +166,13 @@ export default function App() {
               ))}
             </div>
           </div>
-          <button className="share" style={{ background: 'black' }}>
+          <button className="share" style={{ background: snap.selectedColor }}>
             DOWNLOAD
             <AiFillCamera size="1.3em" />
           </button>
           <button
             className="exit"
-            style={{ background: 'black' }}
+            style={{ background: snap.selectedColor }}
             onClick={() => (state.intro = true)}
           >
             GO BACK
