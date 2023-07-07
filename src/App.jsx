@@ -9,6 +9,12 @@ import {
   RandomizedLight,
 } from '@react-three/drei';
 import { useGLTF } from '@react-three/drei';
+import {
+  AiOutlineHighlight,
+  AiOutlineShopping,
+  AiFillCamera,
+  AiOutlineArrowLeft,
+} from 'react-icons/ai';
 import { useRef } from 'react';
 import { easing } from 'maath';
 // import { Model } from './libreta4';
@@ -118,15 +124,67 @@ export default function App() {
     );
   }
 
+  function Customizer() {
+    const colors = [
+      '#ccc',
+      '#EFBD4E',
+      '#80C670',
+      '#726DE8',
+      '#EF674E',
+      '#353934',
+    ];
+    const decals = ['./planelogo', 'journallogo', 'softlogo'];
+
+    return (
+      <section key="custom">
+        <div className="customizer">
+          <div className="color-options">
+            {colors.map((color) => (
+              <div
+                key={color}
+                className="circle"
+                style={{ background: color }}
+              ></div>
+            ))}
+          </div>
+          <div className="decals">
+            <div className="decals--container">
+              {decals.map((decal) => (
+                <div key={decal} className="decal">
+                  <img src={decal + '_thumb.png'} alt="brand" />
+                </div>
+              ))}
+            </div>
+          </div>
+          <button className="share" style={{ background: 'black' }}>
+            DOWNLOAD
+            <AiFillCamera size="1.3em" />
+          </button>
+          <button
+            className="exit"
+            style={{ background: 'black' }}
+            onClick={() => (state.intro = true)}
+          >
+            GO BACK
+            <AiOutlineArrowLeft size="1.3em" />
+          </button>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 60 }}>
-      <ambientLight intensity={0.5} />
-      <Environment preset="city" />
-      <Center>
-        <Backdrop />
-        <Model />
-      </Center>
-      <OrbitControls maxPolarAngle={Math.PI} />
-    </Canvas>
+    <>
+      <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 60 }}>
+        <ambientLight intensity={0.5} />
+        <Environment preset="city" />
+        <Center>
+          <Backdrop />
+          <Model />
+        </Center>
+        <OrbitControls maxPolarAngle={Math.PI} />
+      </Canvas>
+      <Customizer />
+    </>
   );
 }
