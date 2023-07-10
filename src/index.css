@@ -19,6 +19,7 @@ body,
   padding: 0;
   overflow: hidden;
   user-select: none;
+  outline: none;
 }
 
 body {
@@ -30,6 +31,13 @@ canvas {
   touch-action: none;
 }
 
+.picker {
+  position: absolute !important;
+  top: 74px;
+  left: 70px;
+  width: 90px !important;
+  height: 90px !important;
+}
 /* INTRO */
 
 /* .container {
@@ -178,6 +186,7 @@ button:hover {
 }
 
 /* DECALS */
+
 .decals--container {
   display: flex;
   gap: 20px;
