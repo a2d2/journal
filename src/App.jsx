@@ -29,15 +29,15 @@ import { color } from 'framer-motion';
 // import { Model } from './libreta4';
 
 export default function App() {
-  const state = proxy({
-    current: null,
-    items: {
-      Material_0: '#0000ff',
-      Material_1: '#ffffff',
-      Material_2: '#ff0000',
-    },
-    selectedDecal: 'three2',
-  });
+  // const state = proxy({
+  //   current: null,
+  //   items: {
+  //     Material_0: '#0000ff',
+  //     Material_1: '#ffffff',
+  //     Material_2: '#ff0000',
+  //   },
+  //   selectedDecal: 'three2',
+  // });
 
   function Model(props) {
     const snap = useSnapshot(state);
@@ -146,8 +146,9 @@ export default function App() {
                 rotation={[Math.PI / 2, 0, 0]}
                 scale={(30, 30, 30)}
                 // transparent={false}
-                //map-anisotropy={10}
+
                 material-map={texture}
+                material-map-anisotropy={10}
               />
             </mesh>
             <mesh
@@ -208,6 +209,7 @@ export default function App() {
   }
 
   function Customizer() {
+    const snap = useSnapshot(state);
     //MESH color
     const colors = [
       '#0077C8',
@@ -233,7 +235,7 @@ export default function App() {
       '#2b2926',
     ];
 
-    const decals = ['./planelogo', 'journallogo', 'softlogo'];
+    // const decals = ['223', 'three2', 'wall'];
 
     return (
       <section key="custom">
@@ -250,8 +252,12 @@ export default function App() {
           </div>
           <div className="decals">
             <div className="decals--container">
-              {decals.map((decal) => (
-                <div key={decal} className="decal">
+              {snap.decals.map((decal) => (
+                <div
+                  key={decal}
+                  className="decal"
+                  onClick={() => (state.selectedDecal = decal)}
+                >
                   <img src={decal + '_thumb.png'} alt="brand" />
                 </div>
               ))}
