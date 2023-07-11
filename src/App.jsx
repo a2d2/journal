@@ -19,6 +19,7 @@ import {
   AiOutlineArrowLeft,
 } from 'react-icons/ai';
 import { proxy, useSnapshot } from 'valtio';
+import { AxesHelper } from 'three';
 import { HexColorPicker } from 'react-colorful';
 import { state } from './store';
 import * as THREE from 'three';
@@ -35,17 +36,17 @@ export default function App() {
       Material_1: '#00ff00',
       Material_2: '#ff0000',
     },
+    selectedDecal: 'three2',
   });
 
   function Model(props) {
     const snap = useSnapshot(state);
+    const texture = useTexture(`/${snap.selectedDecal}.png`);
+
     const { nodes, materials } = useGLTF('./models/libreta.glb');
-    //const texture = useTexture(`three2.png`);
-    // console.log(materials);
-    console.log(nodes);
-    // useFrame((state, delta) =>
-    //   easing.dampC(materials.Material_0.color, snap.selectedColor, 0.25, delta)
-    // );
+
+    console.log(materials);
+
     const [hovered, setHovered] = useState(null);
     useEffect(() => {
       const cursor = `<svg width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path fill="rgba(255, 255, 255, 0.5)" d="M29.5 54C43.031 54 54 43.031 54 29.5S43.031 5 29.5 5 5 15.969 5 29.5 15.969 54 29.5 54z" stroke="#000"/><g filter="url(#filter0_d)"><path d="M29.5 47C39.165 47 47 39.165 47 29.5S39.165 12 29.5 12 12 19.835 12 29.5 19.835 47 29.5 47z" fill="${snap.items[hovered]}"/></g><path d="M2 2l11 2.947L4.947 13 2 2z" fill="#000"/><text fill="#000" style="white-space:pre" font-family="Inter var, sans-serif" font-size="10" letter-spacing="-.01em"><tspan x="35" y="63">${hovered}</tspan></text></g><defs><clipPath id="clip0"><path fill="#fff" d="M0 0h64v64H0z"/></clipPath><filter id="filter0_d" x="6" y="8" width="47" height="47" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dy="2"/><feGaussianBlur stdDeviation="3"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/></filter></defs></svg>`;
@@ -61,13 +62,12 @@ export default function App() {
       }
     }, [hovered]);
 
-    // materials.Material_0.color = new THREE.Color(snap.selectedColor);
     return (
       <group
         {...props}
         dispose={null}
         onPointerOver={(e) => {
-          // console.log(e.object.material.name);
+          console.log(e.object.material.decal);
           setHovered(e.object.material.name);
         }}
         onPointerOut={(e) => {
@@ -98,10 +98,29 @@ export default function App() {
               castShadow
               receiveShadow
               geometry={
-                nodes['Front(05DAA8E6-C7CF-4657-92E9-EFD8F0005F06)'].geometry
+                nodes['Front(78DF5E49-7C38-4F8F-A4C5-0D7C24FFB800)'].geometry
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
+            >
+              <Decal
+                //debug // Makes "bounding box" of the decal visible
+                position={[3, 2, 100]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={(30, 30, 30)}
+                // material-opacity={1}
+                // map-anisotropy={10}
+                material-map={useTexture('/three2.png')}
+              />
+            </mesh>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Front(05DAA8E6-C7CF-4657-92E9-EFD8F0005F06)'].geometry
+              }
+              material={materials.Material_0}
+              // material-color={snap.items.Material_0}
             />
             <mesh
               castShadow
@@ -119,7 +138,7 @@ export default function App() {
                 nodes['Front(119D16D1-4942-4A52-BD6A-DE874BB8F32D)'].geometry
               }
               material={materials.Material_0}
-              material-color={snap.items.Material_0}
+              // material-color={snap.items.Material_0}
             />
             <mesh
               castShadow
@@ -128,7 +147,7 @@ export default function App() {
                 nodes['Front(3D83D045-8E56-4D70-886D-367F1D6F039B)'].geometry
               }
               material={materials.Material_0}
-              material-color={snap.items.Material_0}
+              //   material-color={snap.items.Material_0}
             />
             <mesh
               castShadow
@@ -137,17 +156,9 @@ export default function App() {
                 nodes['Front(5F1CFF6C-5BCC-450C-B831-39FC12063F55)'].geometry
               }
               material={materials.Material_0}
-              material-color={snap.items.Material_0}
+              //    material-color={snap.items.Material_0}
             />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={
-                nodes['Front(78DF5E49-7C38-4F8F-A4C5-0D7C24FFB800)'].geometry
-              }
-              material={materials.Material_0}
-              material-color={snap.items.Material_0}
-            />
+
             <mesh
               castShadow
               receiveShadow
@@ -275,6 +286,7 @@ export default function App() {
   return (
     <>
       <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 60 }}>
+        <axesHelper args={[1]} />
         <ambientLight intensity={0.5} />
         <Environment preset="city" />
         <Center>
