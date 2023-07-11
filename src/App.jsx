@@ -33,7 +33,7 @@ export default function App() {
     current: null,
     items: {
       Material_0: '#0000ff',
-      Material_1: '#00ff00',
+      Material_1: '#ffffff',
       Material_2: '#ff0000',
     },
     selectedDecal: 'three2',
@@ -110,7 +110,7 @@ export default function App() {
                 scale={(30, 30, 30)}
                 // material-opacity={1}
                 // map-anisotropy={10}
-                material-map={useTexture('/three2.png')}
+                material-map={texture}
               />
             </mesh>
             <mesh
