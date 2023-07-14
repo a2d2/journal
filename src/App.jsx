@@ -290,7 +290,12 @@ export default function App() {
           <Backdrop />
           <Model />
         </Center>
-        <OrbitControls maxPolarAngle={Math.PI} />
+        <OrbitControls
+          minPolarAngle={-Math.PI}
+          maxPolarAngle={Math.PI / 2}
+          enablePan={false}
+          enableZoom={false}
+        />
       </Canvas>
       {/* <Picker /> */}
       <Customizer />
