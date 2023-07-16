@@ -24,7 +24,12 @@ import { AxesHelper } from 'three';
 import { HexColorPicker } from 'react-colorful';
 import { state } from './store';
 import { downloadCanvasToImage, reader } from './config/helpers';
-import { EditorTabs, FilterTabs, DecalTypes } from './config/constants';
+import {
+  EditorTabs,
+  FilterTabs,
+  DecalTypes,
+  EditorTabs1,
+} from './config/constants';
 import { fadeAnimation, slideAnimation } from './config/motion';
 import {
   AIPicker,
@@ -249,45 +254,87 @@ export default function App() {
     // const decals = ['223', 'three2', 'wall'];
 
     return (
-      <section key="custom">
-        <div className="customizer">
-          <div className="color-options">
-            {colors.map((color) => (
-              <div
-                key={color}
-                className="circle"
-                style={{ background: color }}
-                onClick={() => (state.selectedColor = color)}
-              ></div>
-            ))}
-          </div>
-          <div className="decals">
-            <div className="decals--container">
-              {snap.decals.map((decal) => (
+      <>
+        <AnimatePresence>
+          <motion.div
+            key="custom"
+            className="absolute top-0 left-0 z-10"
+            {...slideAnimation('left')}
+          >
+            <div className="flex items-center min-h-screen">
+              <div className="editortabs-container tabs">
+                {EditorTabs.map((tab) => (
+                  <Tab
+                    key={tab.name}
+                    tab={tab}
+                    handleClick={() => {}}
+                    // handleClick={() => setActiveEditorTab(tab.name)}
+                  />
+                ))}
+                {/* {generateTabContent()} */}
+              </div>
+            </div>
+          </motion.div>
+          <motion.div
+            key="custom1"
+            className="absolute top-0 right-0 z-10"
+            {...slideAnimation('right')}
+          >
+            <div className="flex items-center min-h-screen">
+              <div className="editortabs-container tabs">
+                {EditorTabs1.map((tab) => (
+                  <Tab
+                    key={tab.name}
+                    tab={tab}
+                    handleClick={() => {}}
+                    // handleClick={() => setActiveEditorTab(tab.name)}
+                  />
+                ))}
+                {/* {generateTabContent()} */}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+        <section key="custom">
+          <div className="customizer">
+            <div className="color-options">
+              {colors.map((color) => (
                 <div
-                  key={decal}
-                  className="decal"
-                  onClick={() => (state.selectedDecal = decal)}
-                >
-                  <img src={decal + '_thumb.png'} alt="brand" />
-                </div>
+                  key={color}
+                  className="circle"
+                  style={{ background: color }}
+                  onClick={() => (state.selectedColor = color)}
+                ></div>
               ))}
             </div>
+            <div className="decals">
+              <div className="decals--container">
+                {snap.decals.map((decal) => (
+                  <div
+                    key={decal}
+                    className="decal"
+                    onClick={() => (state.selectedDecal = decal)}
+                  >
+                    <img src={decal + '_thumb.png'} alt="brand" />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <button className="share" style={{ background: '#789D4A' }}>
+              DOWNLOAD
+              <AiFillCamera size="1.3em" />
+            </button>
+            <button
+              className="exit"
+              style={{ background: '#789D4A' }}
+              onClick={() => (state.intro = true)}
+            >
+              GO BACK
+              <AiOutlineArrowLeft size="1.3em" />
+            </button>
           </div>
-          <button className="share" style={{ background: '#789D4A' }}>
-            DOWNLOAD
-            <AiFillCamera size="1.3em" />
-          </button>
-          <button
-            className="exit"
-            style={{ background: '#789D4A' }}
-            onClick={() => (state.intro = true)}
-          >
-            GO BACK
-            <AiOutlineArrowLeft size="1.3em" />
-          </button>
-        </div>
-      </section>
+        </section>{' '}
+      </>
     );
   }
 
