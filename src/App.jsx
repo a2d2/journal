@@ -19,13 +19,24 @@ import {
   AiOutlineArrowLeft,
 } from 'react-icons/ai';
 import { proxy, useSnapshot } from 'valtio';
+import { download } from './assets';
 import { AxesHelper } from 'three';
 import { HexColorPicker } from 'react-colorful';
 import { state } from './store';
+import { downloadCanvasToImage, reader } from './config/helpers';
+import { EditorTabs, FilterTabs, DecalTypes } from './config/constants';
+import { fadeAnimation, slideAnimation } from './config/motion';
+import {
+  AIPicker,
+  ColorPicker,
+  CustomButton,
+  Tab,
+  FilePicker,
+} from './components';
 import * as THREE from 'three';
 import { useRef, useState, useEffect } from 'react';
 import { easing } from 'maath';
-import { color } from 'framer-motion';
+import { AnimatePresence, motion, color } from 'framer-motion';
 // import { Model } from './libreta4';
 
 export default function App() {
@@ -283,7 +294,7 @@ export default function App() {
   return (
     <>
       <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 60 }}>
-        {/* <axesHelper args={[1]} /> */}
+        <axesHelper args={[1]} />
         <ambientLight intensity={0.5} />
         <Environment preset="city" />
         <Center>
