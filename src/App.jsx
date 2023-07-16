@@ -58,6 +58,8 @@ export default function App() {
   function Model(props) {
     const snap = useSnapshot(state);
     const texture = useTexture(`/${snap.selectedDecal}.png`);
+    const logoTexture = useTexture(snap.logoDecal);
+    const fullTexture = useTexture(snap.fullDecal);
 
     const { nodes, materials } = useGLTF('./models/libreta.glb');
     useFrame((state, delta) =>
@@ -156,16 +158,36 @@ export default function App() {
               material-color={snap.items.Material_0}
               // material-transparent={false}
             >
-              <Decal
-                //debug // Makes "bounding box" of the decal visible
-                position={[3, 2, 100]}
-                rotation={[Math.PI / 2, 0, 0]}
-                scale={(30, 30, 30)}
-                // transparent={false}
+              {/* {journal} */}
+              {snap.isFullTexture && (
+                <Decal
+                  //debug // Makes "bounding box" of the decal visible
+                  position={[3, 2, 100]}
+                  rotation={[Math.PI / 2, 0, 0]}
+                  scale={(100, 100, 100)}
+                  // transparent={false}
 
-                material-map={texture}
-                material-map-anisotropy={10}
-              />
+                  material-map={fullTexture}
+                  material-map-anisotropy={10}
+                  depthTest={false}
+                  depthWrite={true}
+                />
+              )}
+              {/* logo */}
+              {snap.isLogoTexture && (
+                <Decal
+                  //debug // Makes "bounding box" of the decal visible
+                  position={[3, 2, 100]}
+                  rotation={[Math.PI / 2, 0, 0]}
+                  scale={(30, 30, 30)}
+                  // transparent={false}
+
+                  material-map={logoTexture}
+                  material-map-anisotropy={10}
+                  depthTest={false}
+                  depthWrite={true}
+                />
+              )}
             </mesh>
             <mesh
               castShadow
@@ -294,6 +316,17 @@ export default function App() {
               </div>
             </div>
           </motion.div>
+
+          <motion.div>
+            <button
+              className="absolute z-10 top-5 right-5"
+              style={{ background: '#789D4A' }}
+              onClick={() => (state.intro = true)}
+            >
+              ATRAS
+              <AiOutlineArrowLeft size="1.3em" />
+            </button>
+          </motion.div>
         </AnimatePresence>
         <section key="custom">
           <div className="customizer">
@@ -324,14 +357,14 @@ export default function App() {
               DOWNLOAD
               <AiFillCamera size="1.3em" />
             </button>
-            <button
+            {/* <button
               className="exit"
               style={{ background: '#789D4A' }}
               onClick={() => (state.intro = true)}
             >
               GO BACK
               <AiOutlineArrowLeft size="1.3em" />
-            </button>
+            </button> */}
           </div>
         </section>{' '}
       </>
