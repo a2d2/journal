@@ -12,8 +12,8 @@ const state = proxy({
     Material_1: '#ffffff',
     Material_2: '#ff0000',
   },
-  isLogoTexture: false,
-  isFullTexture: true,
+  isLogoTexture: true,
+  isFullTexture: false,
   logoDecal: './threejs.png',
   fullDecal: './threejs.png',
 });
