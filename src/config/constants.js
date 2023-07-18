@@ -22,10 +22,6 @@ export const EditorTabs = [
     name: 'logoShirt',
     icon: logoShirt,
   },
-  {
-    name: 'stylishShirt',
-    icon: stylishShirt,
-  },
 ];
 
 export const EditorTabs1 = [

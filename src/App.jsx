@@ -266,6 +266,7 @@ export default function App() {
           return (
             <FilePicker file={file} setFile={setFile} readFile={readFile} />
           );
+
         // case 'logoShirt':
         //   handleDecals;
         //   break;
