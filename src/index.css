@@ -167,14 +167,24 @@ button:hover {
 }
 
 /* PICKER */
-
 .color-options {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 20px;
+}
+
+/* .color-options {
   position: absolute;
   display: flex;
-  gap: 10px;
+  gap: 5px;
   bottom: 20px;
   margin-bottom: 20px;
-}
+} */
 
 .circle {
   width: 30px;

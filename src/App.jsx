@@ -248,21 +248,91 @@ export default function App() {
 
   function Customizer() {
     const snap = useSnapshot(state);
+    const [file, setFile] = useState('');
+    const [prompt, setPrompt] = useState('');
+    const [generatingImg, setGeneratingImg] = useState(false);
+    const [activeEditorTab, setActiveEditorTab] = useState('');
+    const [activeFilterTab, setActiveFilterTab] = useState({
+      logoShirt: true,
+      stylishShirt: false,
+    });
+
+    //show tab content depending on the activeTab
+    const generateTabContent = () => {
+      switch (activeEditorTab) {
+        case 'colorpicker':
+          return <ColorPicker />;
+        case 'filepicker':
+          return (
+            <FilePicker file={file} setFile={setFile} readFile={readFile} />
+          );
+        case 'aipicker':
+          return (
+            <AIPicker
+              prompt={prompt}
+              setPrompt={setPrompt}
+              generatingImg={generatingImg}
+              handleSubmit={handleSubmit}
+            />
+          );
+        default:
+          return null;
+      }
+    };
+
+    const readFile = (type) => {
+      reader(file).then((result) => {
+        handleDecals(type, result);
+        setActiveEditorTab('');
+      });
+    };
+
+    const handleDecals = (type, result) => {
+      const decalType = DecalTypes[type];
+      state[decalType.stateProperty] = result;
+      if (!activeFilterTab[decalType.filterTab]) {
+        handleActiveFilterTab(decalType.filterTab);
+      }
+    };
+
+    const handleActiveFilterTab = (tabName) => {
+      switch (tabName) {
+        case 'logoShirt':
+          state.isLogoTexture = !activeFilterTab[tabName];
+          break;
+        case 'stylishShirt':
+          state.isFullTexture = !activeFilterTab[tabName];
+          break;
+        default:
+          state.isLogoTexture = true;
+          state.isFullTexture = false;
+          break;
+      }
+
+      // after setting the state, activeFilterTab is updated
+      setActiveFilterTab((prevState) => {
+        return {
+          ...prevState,
+          [tabName]: !prevState[tabName],
+        };
+      });
+    };
+
     //MESH color
-    const colors = [
-      '#0077C8',
-      '#25282A',
-      '#F7EA48',
-      '#007749',
-      '#009639',
-      '#BA0C2F',
-      '#CE0F69',
-      '#6558b1',
-      '#3e342f',
-      '#ea733d',
-      '#002855',
-      '#2b2926',
-    ];
+    // const colors = [
+    //   '#0077C8',
+    //   '#25282A',
+    //   '#F7EA48',
+    //   '#007749',
+    //   '#009639',
+    //   '#BA0C2F',
+    //   '#CE0F69',
+    //   '#6558b1',
+    //   '#3e342f',
+    //   '#ea733d',
+    //   '#002855',
+    //   '#2b2926',
+    // ];
     //LEATHER color
     const colors1 = [
       '#A4343A',
@@ -289,11 +359,11 @@ export default function App() {
                   <Tab
                     key={tab.name}
                     tab={tab}
-                    handleClick={() => {}}
-                    // handleClick={() => setActiveEditorTab(tab.name)}
+                    // handleClick={() => {}}
+                    handleClick={() => setActiveEditorTab(tab.name)}
                   />
                 ))}
-                {/* {generateTabContent()} */}
+                {generateTabContent()}
               </div>
             </div>
           </motion.div>
@@ -330,7 +400,7 @@ export default function App() {
         </AnimatePresence>
         <section key="custom">
           <div className="customizer">
-            <div className="color-options">
+            {/* <div className="color-options">
               {colors.map((color) => (
                 <div
                   key={color}
@@ -339,7 +409,7 @@ export default function App() {
                   onClick={() => (state.selectedColor = color)}
                 ></div>
               ))}
-            </div>
+            </div> */}
             <div className="decals">
               <div className="decals--container">
                 {snap.decals.map((decal) => (
@@ -373,7 +443,7 @@ export default function App() {
 
   return (
     <>
-      <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 60 }}>
+      <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 45 }}>
         <axesHelper args={[1]} />
         <ambientLight intensity={0.5} />
         <Environment preset="city" />
