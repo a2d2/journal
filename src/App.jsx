@@ -266,15 +266,18 @@ export default function App() {
           return (
             <FilePicker file={file} setFile={setFile} readFile={readFile} />
           );
-        case 'aipicker':
-          return (
-            <AIPicker
-              prompt={prompt}
-              setPrompt={setPrompt}
-              generatingImg={generatingImg}
-              handleSubmit={handleSubmit}
-            />
-          );
+        // case 'logoShirt':
+        //   handleDecals;
+        //   break;
+        // case 'aipicker':
+        //   return (
+        //     <AIPicker
+        //       prompt={prompt}
+        //       setPrompt={setPrompt}
+        //       generatingImg={generatingImg}
+        //       handleSubmit={handleSubmit}
+        //     />
+        //   );
         default:
           return null;
       }
@@ -334,14 +337,14 @@ export default function App() {
     //   '#2b2926',
     // ];
     //LEATHER color
-    const colors1 = [
-      '#A4343A',
-      '#f4f9ff',
-      '#789D4A',
-      '#425563',
-      '#707372',
-      '#2b2926',
-    ];
+    // const colors1 = [
+    //   '#A4343A',
+    //   '#f4f9ff',
+    //   '#789D4A',
+    //   '#425563',
+    //   '#707372',
+    //   '#2b2926',
+    // ];
 
     // const decals = ['223', 'three2', 'wall'];
 
@@ -382,7 +385,6 @@ export default function App() {
                     // handleClick={() => setActiveEditorTab(tab.name)}
                   />
                 ))}
-                {/* {generateTabContent()} */}
               </div>
             </div>
           </motion.div>
@@ -393,12 +395,28 @@ export default function App() {
               style={{ background: '#789D4A' }}
               onClick={() => (state.intro = true)}
             >
-              ATRAS
+              BACK
               <AiOutlineArrowLeft size="1.3em" />
             </button>
           </motion.div>
+
+          <motion.div
+            key="custom2"
+            className="filtertabs-container"
+            {...slideAnimation('up')}
+          >
+            {FilterTabs.map((tab) => (
+              <Tab
+                key={tab.name}
+                tab={tab}
+                isFilterTab
+                isActiveTab={activeFilterTab[tab.name]}
+                handleClick={() => handleActiveFilterTab(tab.name)}
+              />
+            ))}
+          </motion.div>
         </AnimatePresence>
-        <section key="custom">
+        <section key="custom3">
           <div className="customizer">
             {/* <div className="color-options">
               {colors.map((color) => (
@@ -436,7 +454,7 @@ export default function App() {
               <AiOutlineArrowLeft size="1.3em" />
             </button> */}
           </div>
-        </section>{' '}
+        </section>
       </>
     );
   }

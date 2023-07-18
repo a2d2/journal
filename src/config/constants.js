@@ -19,8 +19,12 @@ export const EditorTabs = [
     icon: fileIcon,
   },
   {
-    name: 'aipicker',
-    icon: ai,
+    name: 'logoShirt',
+    icon: logoShirt,
+  },
+  {
+    name: 'stylishShirt',
+    icon: stylishShirt,
   },
 ];
 
