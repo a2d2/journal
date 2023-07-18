@@ -14,14 +14,19 @@ export const EditorTabs = [
     name: 'colorpicker',
     icon: swatch,
   },
+
+  {
+    name: 'stylishShirt',
+    icon: stylishShirt,
+  },
   {
     name: 'filepicker',
     icon: fileIcon,
   },
-  {
-    name: 'logoShirt',
-    icon: logoShirt,
-  },
+  // {
+  //   name: 'logoShirt',
+  //   icon: logoShirt,
+  // },
 ];
 
 export const EditorTabs1 = [
@@ -44,10 +49,10 @@ export const FilterTabs = [
     name: 'logoShirt',
     icon: logoShirt,
   },
-  {
-    name: 'stylishShirt',
-    icon: stylishShirt,
-  },
+  // {
+  //   name: 'stylishShirt',
+  //   icon: stylishShirt,
+  // },
 ];
 
 export const DecalTypes = {
