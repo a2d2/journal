@@ -45,27 +45,37 @@ import { AnimatePresence, motion, color } from 'framer-motion';
 // import { Model } from './libreta4';
 
 export default function App() {
-  // const state = proxy({
-  //   current: null,
-  //   items: {
-  //     Material_0: '#0000ff',
-  //     Material_1: '#ffffff',
-  //     Material_2: '#ff0000',
-  //   },
-  //   selectedDecal: 'three2',
-  // });
-
   function Model(props) {
     const snap = useSnapshot(state);
     const texture = useTexture(`/${snap.selectedDecal}.png`);
     const logoTexture = useTexture(snap.logoDecal);
     const fullTexture = useTexture(snap.fullDecal);
+    const [selectedMaterialName0, setSelectedMaterialName0] = useState(null);
+    const [selectedMaterialName2, setSelectedMaterialName2] = useState(null);
 
     const { nodes, materials } = useGLTF('./models/libreta.glb');
-    useFrame((state, delta) =>
-      easing.dampC(materials.Material_0.color, snap.selectedColor, 0.25, delta)
-    );
+    // useFrame((state, delta) =>
+    //   easing.dampC(materials.Material_0.color, snap.selectedColor, 0.25, delta)
+    // );
+    useFrame((state, delta) => {
+      if (selectedMaterialName0 === 'Material_0') {
+        easing.dampC(
+          materials.Material_0.color,
+          snap.selectedColor,
+          0.25,
+          delta
+        );
+      }
 
+      if (selectedMaterialName2 === 'Material_2') {
+        easing.dampC(
+          materials.Material_2.color,
+          snap.selectedColor,
+          0.25,
+          delta
+        );
+      }
+    });
     console.log(materials);
 
     const [hovered, setHovered] = useState(null);
@@ -74,22 +84,29 @@ export default function App() {
       <group
         {...props}
         dispose={null}
-        // onPointerOver={(e) => {
-        //   // console.log(e.object.material.name);
-        //   setHovered(e.object.material.name);
-        // }}
-        // onPointerOut={(e) => {
-        //   // console.log(e.object.material.name);
-        //   e.intersections.length === 0 && setHovered(null);
-        // }}
-        // onPointerMissed={(e) => {
-        //   state.current = null;
-        // }}
-        // onClick={(e) => {
-        //   // console.log(e);
-        //   e.stopPropagation();
-        //   state.current = e.object.material.name;
-        // }}
+        onPointerOver={(e) => {
+          // console.log(e.object.material.name);
+          setHovered(e.object.material.name);
+        }}
+        onPointerOut={(e) => {
+          // console.log(e.object.material.name);
+          e.intersections.length === 0 && setHovered(null);
+        }}
+        onPointerMissed={(e) => {
+          state.current = null;
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+          const clickedMaterialName = e.object.material.name;
+
+          if (clickedMaterialName === 'Material_0') {
+            setSelectedMaterialName0(clickedMaterialName);
+            setSelectedMaterialName2(null); // Deselect Material_2 when selecting Material_0
+          } else if (clickedMaterialName === 'Material_2') {
+            setSelectedMaterialName2(clickedMaterialName);
+            setSelectedMaterialName0(null); // Deselect Material_0 when selecting Material_2
+          }
+        }}
       >
         <group position={[-0.064, -0.021, 0.034]} scale={0.007}>
           <group position={[0, 0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -196,7 +213,7 @@ export default function App() {
                 nodes['Hojas(A52FF521-4CE0-45A5-BBB4-5174DAD361D2)'].geometry
               }
               material={materials.Material_1}
-              material-color={snap.items.Material_1}
+              // material-color={snap.items.Material_1}
             />
           </group>
         </group>
@@ -322,31 +339,6 @@ export default function App() {
       });
     };
 
-    //MESH color
-    // const colors = [
-    //   '#0077C8',
-    //   '#25282A',
-    //   '#F7EA48',
-    //   '#007749',
-    //   '#009639',
-    //   '#BA0C2F',
-    //   '#CE0F69',
-    //   '#6558b1',
-    //   '#3e342f',
-    //   '#ea733d',
-    //   '#002855',
-    //   '#2b2926',
-    // ];
-    //LEATHER color
-    // const colors1 = [
-    //   '#A4343A',
-    //   '#f4f9ff',
-    //   '#789D4A',
-    //   '#425563',
-    //   '#707372',
-    //   '#2b2926',
-    // ];
-
     // const decals = ['223', 'three2', 'wall'];
 
     return (
@@ -419,16 +411,6 @@ export default function App() {
         </AnimatePresence>
         <section key="custom3">
           <div className="customizer">
-            {/* <div className="color-options">
-              {colors.map((color) => (
-                <div
-                  key={color}
-                  className="circle"
-                  style={{ background: color }}
-                  onClick={() => (state.selectedColor = color)}
-                ></div>
-              ))}
-            </div> */}
             <div className="decals">
               <div className="decals--container">
                 {snap.decals.map((decal) => (

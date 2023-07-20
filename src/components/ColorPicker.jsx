@@ -6,23 +6,9 @@ import { state } from '../store';
 const ColorPicker = () => {
   const snap = useSnapshot(state);
 
-  const colors = [
-    '#0077C8',
-    '#25282A',
-    '#F7EA48',
-    '#007749',
-    '#009639',
-    '#BA0C2F',
-    '#CE0F69',
-    '#6558b1',
-    '#3e342f',
-    '#ea733d',
-    '#002855',
-    '#2b2926',
-  ];
   return (
     <div className="color-options">
-      {colors.map((color) => (
+      {snap.colors.map((color) => (
         <div
           key={color}
           className="circle"
