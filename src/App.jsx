@@ -65,6 +65,9 @@ export default function App() {
           0.25,
           delta
         );
+
+        // Set the color palette to colors
+        state.colors = snap.colors;
       }
 
       if (selectedMaterialName2 === 'Material_2') {
@@ -74,8 +77,12 @@ export default function App() {
           0.25,
           delta
         );
+
+        // Set the color palette to colors1
+        state.colors = snap.colors1;
       }
     });
+
     console.log(materials);
 
     const [hovered, setHovered] = useState(null);
@@ -84,27 +91,19 @@ export default function App() {
       <group
         {...props}
         dispose={null}
-        onPointerOver={(e) => {
-          // console.log(e.object.material.name);
-          setHovered(e.object.material.name);
-        }}
         onPointerOut={(e) => {
-          // console.log(e.object.material.name);
           e.intersections.length === 0 && setHovered(null);
-        }}
-        onPointerMissed={(e) => {
-          state.current = null;
         }}
         onClick={(e) => {
           e.stopPropagation();
           const clickedMaterialName = e.object.material.name;
 
           if (clickedMaterialName === 'Material_0') {
-            setSelectedMaterialName0(clickedMaterialName);
-            setSelectedMaterialName2(null); // Deselect Material_2 when selecting Material_0
+            state.selectedMaterialName0 = clickedMaterialName;
+            state.selectedMaterialName2 = null; // Deselect Material_2 when selecting Material_0
           } else if (clickedMaterialName === 'Material_2') {
-            setSelectedMaterialName2(clickedMaterialName);
-            setSelectedMaterialName0(null); // Deselect Material_0 when selecting Material_2
+            state.selectedMaterialName2 = clickedMaterialName;
+            state.selectedMaterialName0 = null; // Deselect Material_0 when selecting Material_2
           }
         }}
       >
@@ -278,7 +277,9 @@ export default function App() {
     const generateTabContent = () => {
       switch (activeEditorTab) {
         case 'colorpicker':
-          return <ColorPicker />;
+          return <ColorPicker Material_0 />;
+        case 'stylishShirt':
+          return <ColorPicker Material_2 />;
         case 'filepicker':
           return (
             <FilePicker file={file} setFile={setFile} readFile={readFile} />

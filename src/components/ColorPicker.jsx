@@ -1,14 +1,17 @@
 import React from 'react';
-import { SketchPicker } from 'react-color';
 import { useSnapshot } from 'valtio';
 import { state } from '../store';
 
 const ColorPicker = () => {
   const snap = useSnapshot(state);
+  const selectedMaterialName =
+    snap.selectedMaterialName0 || snap.selectedMaterialName2;
+  const colorPalette =
+    selectedMaterialName === 'Material_2' ? snap.colors1 : snap.colors;
 
   return (
     <div className="color-options">
-      {snap.colors.map((color) => (
+      {colorPalette.map((color) => (
         <div
           key={color}
           className="circle"
@@ -17,14 +20,7 @@ const ColorPicker = () => {
         ></div>
       ))}
     </div>
-    // <div className="absolute left-full ml-3">
-    //   <SketchPicker
-    //     color={snap.color}
-    //     disableAlpha
-    //     // presetColors={['#00000', '#fffff', '#00ff00', '#0000ff']}
-    //     onChange={(color) => (state.color = color.hex)}
-    //   />
-    // </div>
   );
 };
+
 export default ColorPicker;
