@@ -50,8 +50,10 @@ export default function App() {
     const texture = useTexture(`/${snap.selectedDecal}.png`);
     const logoTexture = useTexture(snap.logoDecal);
     const fullTexture = useTexture(snap.fullDecal);
-    const [selectedMaterialName0, setSelectedMaterialName0] = useState(null);
-    const [selectedMaterialName2, setSelectedMaterialName2] = useState(null);
+    const [selectedMaterialName0, setSelectedMaterialName0] =
+      useState('Material_0');
+    const [selectedMaterialName2, setSelectedMaterialName2] =
+      useState('Material_2');
 
     // Get the selected color for Material_0 and Material_2
     const selectedColor0 = snap.selectedColor0 || snap.colors[0];
@@ -443,7 +445,7 @@ export default function App() {
   return (
     <>
       <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 45 }}>
-        <axesHelper args={[1]} />
+        {/* <axesHelper args={[1]} /> */}
         <ambientLight intensity={0.5} />
         <Environment preset="city" />
         <Center>
