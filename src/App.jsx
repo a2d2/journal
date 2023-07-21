@@ -274,9 +274,9 @@ export default function App() {
     const generateTabContent = () => {
       switch (activeEditorTab) {
         case 'colorpicker':
-          return <ColorPicker Material_0 />;
-        case 'stylishShirt':
-          return <ColorPicker Material_2 />;
+          return <ColorPicker />;
+        // case 'stylishShirt':
+        //   return <ColorPicker Material_2 />;
         case 'filepicker':
           return (
             <FilePicker file={file} setFile={setFile} readFile={readFile} />
