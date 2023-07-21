@@ -53,33 +53,23 @@ export default function App() {
     const [selectedMaterialName0, setSelectedMaterialName0] = useState(null);
     const [selectedMaterialName2, setSelectedMaterialName2] = useState(null);
 
+    // Get the selected color for Material_0 and Material_2
+    const selectedColor0 = snap.selectedColor0 || snap.colors[0];
+    const selectedColor2 = snap.selectedColor2 || snap.colors1[0];
+
     const { nodes, materials } = useGLTF('./models/libreta.glb');
     // useFrame((state, delta) =>
     //   easing.dampC(materials.Material_0.color, snap.selectedColor, 0.25, delta)
     // );
     useFrame((state, delta) => {
       if (selectedMaterialName0 === 'Material_0') {
-        easing.dampC(
-          materials.Material_0.color,
-          snap.selectedColor,
-          0.25,
-          delta
-        );
-
-        // Set the color palette to colors
-        state.colors = snap.colors;
+        easing.dampC(materials.Material_0.color, selectedColor0, 0.25, delta);
+        state.colors = snap.colors; // Set the color palette to colors
       }
 
       if (selectedMaterialName2 === 'Material_2') {
-        easing.dampC(
-          materials.Material_2.color,
-          snap.selectedColor,
-          0.25,
-          delta
-        );
-
-        // Set the color palette to colors1
-        state.colors = snap.colors1;
+        easing.dampC(materials.Material_2.color, selectedColor2, 0.25, delta);
+        state.colors = snap.colors1; // Set the color palette to colors1
       }
     });
 
@@ -91,6 +81,9 @@ export default function App() {
       <group
         {...props}
         dispose={null}
+        onPointerOver={(e) => {
+          setHovered(e.object.material.name);
+        }}
         onPointerOut={(e) => {
           e.intersections.length === 0 && setHovered(null);
         }}
@@ -101,9 +94,13 @@ export default function App() {
           if (clickedMaterialName === 'Material_0') {
             state.selectedMaterialName0 = clickedMaterialName;
             state.selectedMaterialName2 = null; // Deselect Material_2 when selecting Material_0
+            setSelectedMaterialName0(clickedMaterialName);
+            setSelectedMaterialName2(null); // Deselect Material_2 when selecting Material_0
           } else if (clickedMaterialName === 'Material_2') {
             state.selectedMaterialName2 = clickedMaterialName;
             state.selectedMaterialName0 = null; // Deselect Material_0 when selecting Material_2
+            setSelectedMaterialName2(clickedMaterialName);
+            setSelectedMaterialName0(null); // Deselect Material_0 when selecting Material_2
           }
         }}
       >
