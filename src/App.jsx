@@ -51,9 +51,9 @@ export default function App() {
     const logoTexture = useTexture(snap.logoDecal);
     const fullTexture = useTexture(snap.fullDecal);
     const [selectedMaterialName0, setSelectedMaterialName0] =
-      useState('Material_2');
-    const [selectedMaterialName2, setSelectedMaterialName2] =
       useState('Material_0');
+    const [selectedMaterialName2, setSelectedMaterialName2] =
+      useState('Material_2');
 
     // Get the selected color for Material_0 and Material_2
     const selectedColor0 = snap.selectedColor0 || snap.colors[0];
