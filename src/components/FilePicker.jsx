@@ -8,21 +8,22 @@ const FilePicker = ({ file, setFile, readFile }) => {
         <input
           id="file-upload"
           type="file"
-          accept="image/*"
+          accept="image/svg+xml, image/png, image/jpeg" // Acepta solo archivos SVG
+          // accept="image/*"
           onChange={(e) => setFile(e.target.files[0])}
         />
         <label htmlFor="file-upload" className="filepicker-label">
-          Cargar archivo
+          Click to upload file
         </label>
         <p className="mt-2 text-gray-500 text-xs truncate">
           {' '}
-          {file === '' ? 'No se selecciono archivo' : file.name}
+          {file === '' ? 'Please select a file' : file.name}
         </p>
       </div>
       <div className="mt-4 flex flex-wrap gap-3">
         <CustomButton
           type="outline"
-          title="Logo"
+          title="click to add logo"
           handleClick={() => readFile('logo')}
           customStyles="text-xs"
         />
