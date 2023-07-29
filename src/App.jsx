@@ -42,6 +42,9 @@ import * as THREE from 'three';
 import { useRef, useState, useEffect } from 'react';
 import { easing } from 'maath';
 import { AnimatePresence, motion, color } from 'framer-motion';
+// import roughnessMap from '../public/cuero.jpg';
+// import normalMap from '../public/leather_1k.jpg';
+
 // import { Model } from './libreta4';
 
 export default function App() {
@@ -63,14 +66,20 @@ export default function App() {
     // useFrame((state, delta) =>
     //   easing.dampC(materials.Material_0.color, snap.selectedColor, 0.25, delta)
     // );
+    // const textureLoader = new THREE.TextureLoader();
+
     useFrame((state, delta) => {
       if (selectedMaterialName0 === 'Material_0') {
         easing.dampC(materials.Material_0.color, selectedColor0, 0.25, delta);
+        materials.Material_0.needsUpdate = true; // Add this line to update Material_0
+
         state.colors = snap.colors; // Set the color palette to colors
       }
 
       if (selectedMaterialName2 === 'Material_2') {
         easing.dampC(materials.Material_2.color, selectedColor2, 0.25, delta);
+        materials.Material_2.needsUpdate = true; // Add this line to update Material_2
+
         state.colors = snap.colors1; // Set the color palette to colors1
       }
     });
@@ -125,7 +134,7 @@ export default function App() {
                 nodes['Front(05DAA8E6-C7CF-4657-92E9-EFD8F0005F06)'].geometry
               }
               material={materials.Material_0}
-              // material-color={snap.items.Material_0}
+              material-color={snap.items.Material_0}
             />
             <mesh
               castShadow
@@ -143,7 +152,8 @@ export default function App() {
                 nodes['Front(119D16D1-4942-4A52-BD6A-DE874BB8F32D)'].geometry
               }
               material={materials.Material_0}
-              // material-color={snap.items.Material_0}
+              // material-roughnessMap={textureLoader.load(roughnessMap)}
+              material-color={snap.items.Material_0}
             />
             <mesh
               castShadow
@@ -152,7 +162,7 @@ export default function App() {
                 nodes['Front(3D83D045-8E56-4D70-886D-367F1D6F039B)'].geometry
               }
               material={materials.Material_0}
-              //   material-color={snap.items.Material_0}
+              material-color={snap.items.Material_0}
             />
             <mesh
               castShadow
@@ -161,7 +171,7 @@ export default function App() {
                 nodes['Front(5F1CFF6C-5BCC-450C-B831-39FC12063F55)'].geometry
               }
               material={materials.Material_0}
-              //    material-color={snap.items.Material_0}
+              material-color={snap.items.Material_0}
             />
             <mesh
               castShadow
@@ -171,6 +181,12 @@ export default function App() {
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
+              material-metalness={0.7}
+              // material-roughnessMap={textureLoader.load(roughnessMap)}
+              // material-normalMap={textureLoader.load(normalMap)}
+              material-roughness={0.9}
+              // material-displacementScale={0.1}
+              // material-refractionRadio={0.5}
               // material-transparent={false}
             >
               {/* {journal} */}
@@ -446,8 +462,8 @@ export default function App() {
     <>
       <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 45 }}>
         {/* <axesHelper args={[1]} /> */}
-        <ambientLight intensity={0.5} />
-        <Environment preset="city" />
+        <ambientLight intensity={0.8} />
+        {/* <Environment preset="city" /> */}
         <Center>
           <Backdrop />
           <Model />
