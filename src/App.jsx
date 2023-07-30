@@ -42,12 +42,51 @@ import * as THREE from 'three';
 import { useRef, useState, useEffect } from 'react';
 import { easing } from 'maath';
 import { AnimatePresence, motion, color } from 'framer-motion';
+import { useControls } from 'leva';
 // import roughnessMap from '../public/cuero.jpg';
 // import normalMap from '../public/leather_1k.jpg';
 
 // import { Model } from './libreta4';
 
 export default function App() {
+  // Position and intensity values can be adjusted as needed
+  const pointLight = new THREE.PointLight(0xffffff, 1);
+  pointLight.position.set(0, 0, 1); // Set the position of the point light
+  function Lights() {
+    const pointRef = useRef();
+    useControls('Point Light', {
+      visible: {
+        value: false,
+        onChange: (v) => {
+          pointRef.current.visible = v;
+        },
+      },
+      position: {
+        x: 2,
+        y: 0,
+        z: 0,
+        onChange: (v) => {
+          pointRef.current.position.copy(v);
+        },
+      },
+      color: {
+        value: 'white',
+        onChange: (v) => {
+          pointRef.current.color = new THREE.Color(v);
+        },
+      },
+    });
+    return (
+      <>
+        <pointLight ref={pointRef}>
+          <mesh>
+            <sphereGeometry args={[0.25]}></sphereGeometry>
+          </mesh>
+        </pointLight>
+      </>
+    );
+  }
+
   function Model(props) {
     const snap = useSnapshot(state);
     const texture = useTexture(`/${snap.selectedDecal}.png`);
@@ -63,6 +102,14 @@ export default function App() {
     const selectedColor2 = snap.selectedColor2 || snap.colors1[0];
 
     const { nodes, materials } = useGLTF('./models/libreta.glb');
+    // Load the wafer texture
+    const waferTexture = useTexture('../public/wafer.jpg');
+
+    // Create the wafer material
+    const waferMaterial = new THREE.MeshStandardMaterial({
+      map: waferTexture,
+      // Add any other material properties you want to set for the wafer, e.g., roughness, metalness, etc.
+    });
     // useFrame((state, delta) =>
     //   easing.dampC(materials.Material_0.color, snap.selectedColor, 0.25, delta)
     // );
@@ -181,10 +228,11 @@ export default function App() {
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
-              material-metalness={0.7}
+              // material-metalness={0.9}
               // material-roughnessMap={textureLoader.load(roughnessMap)}
               // material-normalMap={textureLoader.load(normalMap)}
-              material-roughness={0.9}
+              material-roughness={0.8}
+              // material-map={waferTexture}
               // material-displacementScale={0.1}
               // material-refractionRadio={0.5}
               // material-transparent={false}
@@ -461,21 +509,24 @@ export default function App() {
   return (
     <>
       <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 45 }}>
-        {/* <axesHelper args={[1]} /> */}
-        <ambientLight intensity={0.8} />
+        <axesHelper args={[1]} />
+        <ambientLight intensity={0.5} />
         {/* <Environment preset="city" /> */}
         <Center>
           <Backdrop />
+
+          {/* <pointLight intensity={1} color="#ff0000" position={(0, 0, 1)} /> */}
           <Model />
+          <Lights />
         </Center>
-        <OrbitControls
-          minPolarAngle={-Math.PI}
-          maxPolarAngle={Math.PI / 2}
-          enablePan={false}
-          enableZoom={false}
-        />
+        <OrbitControls />
+        {/* minPolarAngle={-Math.PI}
+        maxPolarAngle={Math.PI / 2}
+        enablePan={false}
+        enableZoom={false} */}
       </Canvas>
       {/* <Picker /> */}
+
       <Customizer />
     </>
   );
