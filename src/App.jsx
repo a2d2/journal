@@ -51,7 +51,7 @@ import { useControls } from 'leva';
 export default function App() {
   // Position and intensity values can be adjusted as needed
   const pointLight = new THREE.PointLight(0xffffff, 1);
-  pointLight.position.set(0, 0, 1); // Set the position of the point light
+  pointLight.position.set(0, 0.4, 1.1); // Set the position of the point light
   function Lights() {
     const pointRef = useRef();
     useControls('Point Light', {
@@ -62,9 +62,9 @@ export default function App() {
         },
       },
       position: {
-        x: 2,
-        y: 0,
-        z: 0,
+        x: 0,
+        y: 0.4,
+        z: 1.1,
         onChange: (v) => {
           pointRef.current.position.copy(v);
         },
@@ -101,7 +101,7 @@ export default function App() {
     const selectedColor0 = snap.selectedColor0 || snap.colors[0];
     const selectedColor2 = snap.selectedColor2 || snap.colors1[0];
 
-    const { nodes, materials } = useGLTF('./models/libreta.glb');
+    const { nodes, materials } = useGLTF('./models/libretanueva1.glb');
     // Load the wafer texture
     const waferTexture = useTexture('../public/wafer.jpg');
 
@@ -162,8 +162,10 @@ export default function App() {
           }
         }}
       >
-        <group position={[-0.064, -0.021, 0.034]} scale={0.007}>
+        <group position={[-0.064, -0.021, 0.034]} scale={0.005}>
+          {/* <group position={[-0.064, -0.021, 0.034]} scale={0.007}> */}
           <group position={[0, 0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            {/* <group position={[0, 0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}> */}
             <mesh
               castShadow
               receiveShadow
@@ -173,65 +175,44 @@ export default function App() {
               material={materials.Material_2}
               material-color={snap.items.Material_2}
             />
-
             <mesh
               castShadow
               receiveShadow
               geometry={
-                nodes['Front(05DAA8E6-C7CF-4657-92E9-EFD8F0005F06)'].geometry
+                nodes['Hojas(4676884E-6E07-4763-BC75-8E648863D826)'].geometry
               }
-              material={materials.Material_0}
-              material-color={snap.items.Material_0}
+              material={materials.Material_1}
             />
             <mesh
               castShadow
               receiveShadow
               geometry={
-                nodes['Front(077A05E9-2BD8-4B62-9B01-3387C604942A)'].geometry
+                nodes['Tapa(079AAA22-C889-4CD0-A428-A882861B129B)'].geometry
+              }
+              material={materials.Material_0}
+              // material-color={snap.items.Material_0}
+            />
+            {/* <mesh
+              castShadow
+              receiveShadow
+              geometry={
+                nodes['Tapa(543E714D-DDAB-4D9D-A083-DD8B14EC65D5)'].geometry
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
-            />
+            /> */}
             <mesh
               castShadow
               receiveShadow
               geometry={
-                nodes['Front(119D16D1-4942-4A52-BD6A-DE874BB8F32D)'].geometry
-              }
-              material={materials.Material_0}
-              // material-roughnessMap={textureLoader.load(roughnessMap)}
-              material-color={snap.items.Material_0}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={
-                nodes['Front(3D83D045-8E56-4D70-886D-367F1D6F039B)'].geometry
-              }
-              material={materials.Material_0}
-              material-color={snap.items.Material_0}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={
-                nodes['Front(5F1CFF6C-5BCC-450C-B831-39FC12063F55)'].geometry
-              }
-              material={materials.Material_0}
-              material-color={snap.items.Material_0}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={
-                nodes['Front(78DF5E49-7C38-4F8F-A4C5-0D7C24FFB800)'].geometry
+                nodes['Tapa(490C8E14-3344-499F-A9BC-CD72AF09B5A8)'].geometry
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
               // material-metalness={0.9}
               // material-roughnessMap={textureLoader.load(roughnessMap)}
               // material-normalMap={textureLoader.load(normalMap)}
-              material-roughness={0.8}
+              // material-roughness={1}
               // material-map={waferTexture}
               // material-displacementScale={0.1}
               // material-refractionRadio={0.5}
@@ -268,15 +249,6 @@ export default function App() {
                 />
               )}
             </mesh>
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={
-                nodes['Hojas(A52FF521-4CE0-45A5-BBB4-5174DAD361D2)'].geometry
-              }
-              material={materials.Material_1}
-              // material-color={snap.items.Material_1}
-            />
           </group>
         </group>
       </group>
@@ -509,21 +481,21 @@ export default function App() {
   return (
     <>
       <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 45 }}>
-        <axesHelper args={[1]} />
+        {/* <axesHelper args={[1]} /> */}
         <ambientLight intensity={0.5} />
         {/* <Environment preset="city" /> */}
         <Center>
           <Backdrop />
-
-          {/* <pointLight intensity={1} color="#ff0000" position={(0, 0, 1)} /> */}
+          {/* <pointLight intensity={1} color="#ff0000" position={(0, 0.4, 1.1)} /> */}
           <Model />
-          <Lights />
+          {/* <Lights /> */}
         </Center>
-        <OrbitControls />
-        {/* minPolarAngle={-Math.PI}
-        maxPolarAngle={Math.PI / 2}
-        enablePan={false}
-        enableZoom={false} */}
+        <OrbitControls
+          minPolarAngle={-Math.PI}
+          maxPolarAngle={Math.PI / 2}
+          enablePan={false}
+          enableZoom={true}
+        />
       </Canvas>
       {/* <Picker /> */}
 
