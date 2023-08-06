@@ -101,7 +101,7 @@ export default function App() {
     const selectedColor0 = snap.selectedColor0 || snap.colors[0];
     const selectedColor2 = snap.selectedColor2 || snap.colors1[0];
 
-    const { nodes, materials } = useGLTF('./models/libretanueva1.glb');
+    const { nodes, materials } = useGLTF('./models/TravelSkin.glb');
     // Load the wafer texture
     const waferTexture = useTexture('../public/wafer.jpg');
 
@@ -192,15 +192,16 @@ export default function App() {
               material={materials.Material_0}
               // material-color={snap.items.Material_0}
             />
-            {/* <mesh
+            <mesh
               castShadow
               receiveShadow
               geometry={
                 nodes['Tapa(543E714D-DDAB-4D9D-A083-DD8B14EC65D5)'].geometry
               }
               material={materials.Material_0}
-              material-color={snap.items.Material_0}
-            /> */}
+              // material-color={snap.items.Material_0}
+            />
+
             <mesh
               castShadow
               receiveShadow
