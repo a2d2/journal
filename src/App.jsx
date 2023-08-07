@@ -62,9 +62,9 @@ export default function App() {
         },
       },
       position: {
-        x: 0,
-        y: 0.4,
-        z: 1.1,
+        x: -0.77,
+        y: 0.36,
+        z: -0.02,
         onChange: (v) => {
           pointRef.current.position.copy(v);
         },
@@ -80,7 +80,7 @@ export default function App() {
       <>
         <pointLight ref={pointRef}>
           <mesh>
-            <sphereGeometry args={[0.25]}></sphereGeometry>
+            <boxGeometry args={[0.25, 2, 0.25]}></boxGeometry>
           </mesh>
         </pointLight>
       </>
@@ -190,7 +190,7 @@ export default function App() {
                 nodes['Tapa(079AAA22-C889-4CD0-A428-A882861B129B)'].geometry
               }
               material={materials.Material_0}
-              // material-color={snap.items.Material_0}
+              material-color={snap.items.Material_0}
             />
             <mesh
               castShadow
@@ -199,7 +199,7 @@ export default function App() {
                 nodes['Tapa(543E714D-DDAB-4D9D-A083-DD8B14EC65D5)'].geometry
               }
               material={materials.Material_0}
-              // material-color={snap.items.Material_0}
+              material-color={snap.items.Material_0}
             />
 
             <mesh
@@ -483,13 +483,13 @@ export default function App() {
     <>
       <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 45 }}>
         {/* <axesHelper args={[1]} /> */}
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={1} color="white" />
         {/* <Environment preset="city" /> */}
         <Center>
           <Backdrop />
           {/* <pointLight intensity={1} color="#ff0000" position={(0, 0.4, 1.1)} /> */}
           <Model />
-          {/* <Lights /> */}
+          <Lights />
         </Center>
         <OrbitControls
           minPolarAngle={-Math.PI}
