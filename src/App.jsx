@@ -1,6 +1,7 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import {
   OrbitControls,
+  Stats,
   Environment,
   ContactShadows,
   SpotLight,
@@ -43,6 +44,7 @@ import { useRef, useState, useEffect } from 'react';
 import { easing } from 'maath';
 import { AnimatePresence, motion, color } from 'framer-motion';
 import { useControls } from 'leva';
+import { DirectionalLight } from 'three';
 // import roughnessMap from '../public/cuero.jpg';
 // import normalMap from '../public/leather_1k.jpg';
 
@@ -50,39 +52,68 @@ import { useControls } from 'leva';
 
 export default function App() {
   // Position and intensity values can be adjusted as needed
-  const pointLight = new THREE.PointLight(0xffffff, 1);
-  pointLight.position.set(0, 0.4, 1.1); // Set the position of the point light
+
+  // const pointLight = new THREE.PointLight(0xffffff, 1);
+  // pointLight.position.set(1, 1, 1); // Set the position of the point light
   function Lights() {
-    const pointRef = useRef();
-    useControls('Point Light', {
+    // const pointRef = useRef();
+    const directionalRef = useRef();
+    // useControls('Point Light', {
+    //   visible: {
+    //     value: false,
+    //     onChange: (v) => {
+    //       pointRef.current.visible = v;
+    //     },
+    //   },
+    //   position: {
+    //     x: 1,
+    //     y: 1,
+    //     z: 11,
+    //     onChange: (v) => {
+    //       pointRef.current.position.copy(v);
+    //     },
+    //   },
+    //   color: {
+    //     value: 'white',
+    //     onChange: (v) => {
+    //       pointRef.current.color = new THREE.Color(v);
+    //     },
+    //   },
+    // });
+    useControls('Directional Light', {
       visible: {
         value: false,
         onChange: (v) => {
-          pointRef.current.visible = v;
+          directionalRef.current.visible = v;
         },
       },
       position: {
-        x: -0.77,
+        x: -2,
         y: 0.36,
         z: -0.02,
         onChange: (v) => {
-          pointRef.current.position.copy(v);
+          directionalRef.current.position.copy(v);
         },
       },
       color: {
         value: 'white',
         onChange: (v) => {
-          pointRef.current.color = new THREE.Color(v);
+          directionalRef.current.color = new THREE.Color(v);
         },
       },
     });
     return (
       <>
-        <pointLight ref={pointRef}>
+        {/* <pointLight ref={pointRef}>
           <mesh>
-            <boxGeometry args={[0.25, 2, 0.25]}></boxGeometry>
+            <sphereGeometry args={[0.5, 2, 0.25]}></sphereGeometry>
           </mesh>
-        </pointLight>
+        </pointLight> */}
+        <directionalLight ref={directionalRef}>
+          <mesh>
+            <boxGeometry args={[0.25, 2, 1]}></boxGeometry>
+          </mesh>
+        </directionalLight>
       </>
     );
   }
@@ -103,17 +134,6 @@ export default function App() {
 
     const { nodes, materials } = useGLTF('./models/TravelSkin.glb');
     // Load the wafer texture
-    const waferTexture = useTexture('../public/wafer.jpg');
-
-    // Create the wafer material
-    const waferMaterial = new THREE.MeshStandardMaterial({
-      map: waferTexture,
-      // Add any other material properties you want to set for the wafer, e.g., roughness, metalness, etc.
-    });
-    // useFrame((state, delta) =>
-    //   easing.dampC(materials.Material_0.color, snap.selectedColor, 0.25, delta)
-    // );
-    // const textureLoader = new THREE.TextureLoader();
 
     useFrame((state, delta) => {
       if (selectedMaterialName0 === 'Material_0') {
@@ -193,7 +213,7 @@ export default function App() {
               material-color={snap.items.Material_0}
             />
             <mesh
-              castShadow
+              castShadow={false}
               receiveShadow
               geometry={
                 nodes['Tapa(543E714D-DDAB-4D9D-A083-DD8B14EC65D5)'].geometry
@@ -213,9 +233,7 @@ export default function App() {
               // material-metalness={0.9}
               // material-roughnessMap={textureLoader.load(roughnessMap)}
               // material-normalMap={textureLoader.load(normalMap)}
-              // material-roughness={1}
-              // material-map={waferTexture}
-              // material-displacementScale={0.1}
+              // material-roughness={1}              // material-displacementScale={0.1}
               // material-refractionRadio={0.5}
               // material-transparent={false}
             >
@@ -482,9 +500,10 @@ export default function App() {
   return (
     <>
       <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 45 }}>
-        {/* <axesHelper args={[1]} /> */}
+        <axesHelper args={[1]} />
         <ambientLight intensity={1} color="white" />
         {/* <Environment preset="city" /> */}
+
         <Center>
           <Backdrop />
           {/* <pointLight intensity={1} color="#ff0000" position={(0, 0.4, 1.1)} /> */}
@@ -497,6 +516,7 @@ export default function App() {
           enablePan={false}
           enableZoom={true}
         />
+        <Stats />
       </Canvas>
       {/* <Picker /> */}
 
