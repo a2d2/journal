@@ -88,7 +88,7 @@ export default function App() {
         },
       },
       position: {
-        x: -2,
+        x: -1,
         y: 0.36,
         z: -0.02,
         onChange: (v) => {
@@ -132,20 +132,20 @@ export default function App() {
     const selectedColor0 = snap.selectedColor0 || snap.colors[0];
     const selectedColor2 = snap.selectedColor2 || snap.colors1[0];
 
-    const { nodes, materials } = useGLTF('./models/TravelSkin.glb');
+    const { nodes, materials } = useGLTF('./models/libreta070823.glb');
     // Load the wafer texture
 
     useFrame((state, delta) => {
       if (selectedMaterialName0 === 'Material_0') {
         easing.dampC(materials.Material_0.color, selectedColor0, 0.25, delta);
-        materials.Material_0.needsUpdate = true; // Add this line to update Material_0
+        // materials.Material_0.needsUpdate = true; // Add this line to update Material_0
 
         state.colors = snap.colors; // Set the color palette to colors
       }
 
       if (selectedMaterialName2 === 'Material_2') {
         easing.dampC(materials.Material_2.color, selectedColor2, 0.25, delta);
-        materials.Material_2.needsUpdate = true; // Add this line to update Material_2
+        // materials.Material_2.needsUpdate = true; // Add this line to update Material_2
 
         state.colors = snap.colors1; // Set the color palette to colors1
       }
@@ -193,13 +193,12 @@ export default function App() {
                 nodes['Elástico(3DC1EE99-2D33-4495-8223-4BAA1260D758)'].geometry
               }
               material={materials.Material_2}
-              material-color={snap.items.Material_2}
             />
             <mesh
               castShadow
               receiveShadow
               geometry={
-                nodes['Hojas(4676884E-6E07-4763-BC75-8E648863D826)'].geometry
+                nodes['Hojas(A52FF521-4CE0-45A5-BBB4-5174DAD361D2)'].geometry
               }
               material={materials.Material_1}
             />
@@ -207,16 +206,7 @@ export default function App() {
               castShadow
               receiveShadow
               geometry={
-                nodes['Tapa(079AAA22-C889-4CD0-A428-A882861B129B)'].geometry
-              }
-              material={materials.Material_0}
-              material-color={snap.items.Material_0}
-            />
-            <mesh
-              castShadow={false}
-              receiveShadow
-              geometry={
-                nodes['Tapa(543E714D-DDAB-4D9D-A083-DD8B14EC65D5)'].geometry
+                nodes['Front(077A05E9-2BD8-4B62-9B01-3387C604942A)'].geometry
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
@@ -226,14 +216,14 @@ export default function App() {
               castShadow
               receiveShadow
               geometry={
-                nodes['Tapa(490C8E14-3344-499F-A9BC-CD72AF09B5A8)'].geometry
+                nodes['Front(78DF5E49-7C38-4F8F-A4C5-0D7C24FFB800)'].geometry
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
               // material-metalness={0.9}
               // material-roughnessMap={textureLoader.load(roughnessMap)}
               // material-normalMap={textureLoader.load(normalMap)}
-              // material-roughness={1}              // material-displacementScale={0.1}
+              material-roughness={1} // material-displacementScale={0.1}
               // material-refractionRadio={0.5}
               // material-transparent={false}
             >
@@ -501,7 +491,7 @@ export default function App() {
     <>
       <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 45 }}>
         <axesHelper args={[1]} />
-        <ambientLight intensity={1} color="white" />
+        <ambientLight intensity={0.5} />
         {/* <Environment preset="city" /> */}
 
         <Center>
@@ -516,7 +506,7 @@ export default function App() {
           enablePan={false}
           enableZoom={true}
         />
-        <Stats />
+        {/* <Stats /> */}
       </Canvas>
       {/* <Picker /> */}
 
