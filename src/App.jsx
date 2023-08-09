@@ -88,9 +88,9 @@ export default function App() {
         },
       },
       position: {
-        x: -1,
-        y: 0.36,
-        z: -0.02,
+        x: -8,
+        y: 0.8,
+        z: 0,
         onChange: (v) => {
           directionalRef.current.position.copy(v);
         },
@@ -132,21 +132,21 @@ export default function App() {
     const selectedColor0 = snap.selectedColor0 || snap.colors[0];
     const selectedColor2 = snap.selectedColor2 || snap.colors1[0];
 
-    const { nodes, materials } = useGLTF('./models/libreta070823.glb');
+    const { nodes, materials } = useGLTF('./models/libreta090823-1.glb');
     // Load the wafer texture
 
     useFrame((state, delta) => {
       if (selectedMaterialName0 === 'Material_0') {
         easing.dampC(materials.Material_0.color, selectedColor0, 0.25, delta);
-        // materials.Material_0.needsUpdate = true; // Add this line to update Material_0
-
+        materials.Material_0.needsUpdate = true; // Add this line to update Material_0
+        materials.Material_0.color.set(selectedColor0);
         state.colors = snap.colors; // Set the color palette to colors
       }
 
       if (selectedMaterialName2 === 'Material_2') {
         easing.dampC(materials.Material_2.color, selectedColor2, 0.25, delta);
-        // materials.Material_2.needsUpdate = true; // Add this line to update Material_2
-
+        materials.Material_2.needsUpdate = true; // Add this line to update Material_2
+        materials.Material_2.color.set(selectedColor2);
         state.colors = snap.colors1; // Set the color palette to colors1
       }
     });
@@ -182,7 +182,7 @@ export default function App() {
           }
         }}
       >
-        <group position={[-0.064, -0.021, 0.034]} scale={0.005}>
+        <group position={[0, 0.5, -0.1]} scale={0.005}>
           {/* <group position={[-0.064, -0.021, 0.034]} scale={0.007}> */}
           <group position={[0, 0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
             {/* <group position={[0, 0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}> */}
@@ -193,6 +193,9 @@ export default function App() {
                 nodes['Elástico(3DC1EE99-2D33-4495-8223-4BAA1260D758)'].geometry
               }
               material={materials.Material_2}
+              material-color={snap.items.Material_2}
+              // material-metalness={0}
+              // material-refractionRadio={0.5}
             />
             <mesh
               castShadow
@@ -201,6 +204,7 @@ export default function App() {
                 nodes['Hojas(A52FF521-4CE0-45A5-BBB4-5174DAD361D2)'].geometry
               }
               material={materials.Material_1}
+              material-color={snap.items.Material_1}
             />
             <mesh
               castShadow
@@ -220,10 +224,9 @@ export default function App() {
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
-              // material-metalness={0.9}
-              // material-roughnessMap={textureLoader.load(roughnessMap)}
-              // material-normalMap={textureLoader.load(normalMap)}
-              material-roughness={1} // material-displacementScale={0.1}
+              // material-metalness={0.3}
+              // material-roughness={1}
+              // material-displacementScale={0.1}
               // material-refractionRadio={0.5}
               // material-transparent={false}
             >
