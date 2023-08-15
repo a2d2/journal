@@ -45,16 +45,14 @@ import { easing } from 'maath';
 import { AnimatePresence, motion, color } from 'framer-motion';
 import { useControls } from 'leva';
 import { DirectionalLight } from 'three';
-// import roughnessMap from '../public/cuero.jpg';
-// import normalMap from '../public/leather_1k.jpg';
-
-// import { Model } from './libreta4';
 
 export default function App() {
   // Position and intensity values can be adjusted as needed
 
   function Lights() {
     const directionalRef = useRef();
+    const lightHelperRef = useRef(); // Helper mesh to visualize the light direction
+
     useControls('Directional Light', {
       visible: {
         value: true,
@@ -63,9 +61,9 @@ export default function App() {
         },
       },
       position: {
-        x: -1.78,
+        x: -1.5,
         y: 0.8,
-        z: 0.16,
+        z: 2,
         onChange: (v) => {
           directionalRef.current.position.copy(v);
         },
@@ -77,7 +75,7 @@ export default function App() {
         },
       },
       intensity: {
-        value: 2, // Default intensity value
+        value: 1, // Default intensity value
         min: 0, // Minimum intensity value
         max: 2, // Maximum intensity value
         onChange: (v) => {
@@ -85,18 +83,25 @@ export default function App() {
         },
       },
     });
+    useEffect(() => {
+      const lightHelperGeometry = new THREE.ConeGeometry(0.2, 0.5, 16);
+      const lightHelperMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        visible: false,
+      });
+      lightHelperRef.current = new THREE.Mesh(
+        lightHelperGeometry,
+        lightHelperMaterial
+      );
+      directionalRef.current.add(lightHelperRef.current);
+    }, []);
+
     return (
       <>
-        {/* <pointLight ref={pointRef}>
-          <mesh>
-            <sphereGeometry args={[0.5, 2, 0.25]}></sphereGeometry>
-          </mesh>
-        </pointLight> */}
-        <directionalLight ref={directionalRef}>
-          <mesh>
-            <boxGeometry args={[0.1, 2, 1]}></boxGeometry>
-          </mesh>
-        </directionalLight>
+        <directionalLight
+          ref={directionalRef}
+          intensity={0.5}
+        ></directionalLight>
       </>
     );
   }
@@ -249,20 +254,6 @@ export default function App() {
       </group>
     );
   }
-
-  // const Picker = () => {
-  //   const snap = useSnapshot(state);
-  //   return (
-  //     <div style={{ display: snap.current ? 'block' : 'none' }}>
-  //       <HexColorPicker
-  //         className="picker"
-  //         color={snap.items[snap.current]}
-  //         onChange={(color) => (state.items[snap.current] = color)}
-  //       />
-  //       <h1>{snap.current}</h1>
-  //     </div>
-  //   );
-  // };
 
   function Backdrop() {
     return (
