@@ -299,8 +299,8 @@ export default function App() {
       switch (activeEditorTab) {
         case 'colorpicker':
           return <ColorPicker />;
-        // case 'stylishShirt':
-        //   return <ColorPicker Material_2 />;
+        case 'stylishShirt':
+          return <ColorPicker Material_2 />;
         case 'filepicker':
           return (
             <FilePicker file={file} setFile={setFile} readFile={readFile} />
@@ -365,6 +365,7 @@ export default function App() {
 
     return (
       <>
+        {/* LEFT TABS */}
         <AnimatePresence>
           <motion.div
             key="custom"
@@ -385,7 +386,9 @@ export default function App() {
               </div>
             </div>
           </motion.div>
-          <motion.div
+
+          {/* RIGHT TABS */}
+          {/* <motion.div
             key="custom1"
             className="absolute top-0 right-0 z-10"
             {...slideAnimation('right')}
@@ -402,19 +405,21 @@ export default function App() {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
 
+          {/* E-MAIL BUTTON */}
           <motion.div>
             <button
               className="absolute z-10 top-5 right-5"
               style={{ background: '#789D4A' }}
-              onClick={() => (state.intro = true)}
+              onClick={() => (state.intro = true)} // BACK PAGE change to email SEND button
             >
-              BACK
+              E-MAIL
               <AiOutlineArrowLeft size="1.3em" />
             </button>
           </motion.div>
 
+          {/* BOTTOM TABS - FILTER TABS */}
           <motion.div
             key="custom2"
             className="filtertabs-container"
