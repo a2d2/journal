@@ -63,9 +63,9 @@ export default function App() {
         },
       },
       position: {
-        x: -1,
-        y: 1,
-        z: 0,
+        x: -1.78,
+        y: 0.8,
+        z: 0.16,
         onChange: (v) => {
           directionalRef.current.position.copy(v);
         },
@@ -74,6 +74,14 @@ export default function App() {
         value: 'white',
         onChange: (v) => {
           directionalRef.current.color = new THREE.Color(v);
+        },
+      },
+      intensity: {
+        value: 2, // Default intensity value
+        min: 0, // Minimum intensity value
+        max: 2, // Maximum intensity value
+        onChange: (v) => {
+          directionalRef.current.intensity = v;
         },
       },
     });
@@ -86,7 +94,7 @@ export default function App() {
         </pointLight> */}
         <directionalLight ref={directionalRef}>
           <mesh>
-            <boxGeometry args={[0.01, 1, 0.7]}></boxGeometry>
+            <boxGeometry args={[0.1, 2, 1]}></boxGeometry>
           </mesh>
         </directionalLight>
       </>
@@ -157,7 +165,7 @@ export default function App() {
           }
         }}
       >
-        <group position={[0, 0.5, -0.1]} scale={0.005}>
+        <group position={[-0.2, -0.18, -0.1]} scale={0.009}>
           {/* <group position={[-0.064, -0.021, 0.034]} scale={0.007}> */}
           <group position={[0, 0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
             {/* <group position={[0, 0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}> */}
@@ -264,19 +272,19 @@ export default function App() {
         alphaTest={0.65}
         scale={20}
         rotation={[0, Math.PI, 0]}
-        position={[0, -0.14, -0.14]}
+        position={[0, -0.7, -0.7]}
       >
         <RandomizedLight
           amount={4}
           radius={9}
-          intensity={0.55}
+          intensity={0.7}
           ambient={0.25}
           position={[5, 5, -10]}
         />
         <RandomizedLight
           amount={4}
           radius={5}
-          intensity={0.25}
+          intensity={0.2}
           ambient={0.55}
           position={[-5, 5, -9]}
         />
@@ -467,8 +475,8 @@ export default function App() {
 
   return (
     <>
-      <Canvas shadows camera={{ position: [-1, 0, 2.5], fov: 45 }}>
-        <axesHelper args={[1]} />
+      <Canvas shadows camera={{ position: [0.3, -2, 3], fov: 45 }}>
+        {/* <axesHelper args={[1]} /> */}
         <ambientLight intensity={0.5} />
         {/* <Environment preset="city" /> */}
 
