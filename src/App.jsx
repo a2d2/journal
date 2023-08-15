@@ -53,43 +53,18 @@ import { DirectionalLight } from 'three';
 export default function App() {
   // Position and intensity values can be adjusted as needed
 
-  // const pointLight = new THREE.PointLight(0xffffff, 1);
-  // pointLight.position.set(1, 1, 1); // Set the position of the point light
   function Lights() {
-    // const pointRef = useRef();
     const directionalRef = useRef();
-    // useControls('Point Light', {
-    //   visible: {
-    //     value: false,
-    //     onChange: (v) => {
-    //       pointRef.current.visible = v;
-    //     },
-    //   },
-    //   position: {
-    //     x: 1,
-    //     y: 1,
-    //     z: 11,
-    //     onChange: (v) => {
-    //       pointRef.current.position.copy(v);
-    //     },
-    //   },
-    //   color: {
-    //     value: 'white',
-    //     onChange: (v) => {
-    //       pointRef.current.color = new THREE.Color(v);
-    //     },
-    //   },
-    // });
     useControls('Directional Light', {
       visible: {
-        value: false,
+        value: true,
         onChange: (v) => {
           directionalRef.current.visible = v;
         },
       },
       position: {
-        x: -8,
-        y: 0.8,
+        x: -1,
+        y: 1,
         z: 0,
         onChange: (v) => {
           directionalRef.current.position.copy(v);
@@ -111,7 +86,7 @@ export default function App() {
         </pointLight> */}
         <directionalLight ref={directionalRef}>
           <mesh>
-            <boxGeometry args={[0.25, 2, 1]}></boxGeometry>
+            <boxGeometry args={[0.01, 1, 0.7]}></boxGeometry>
           </mesh>
         </directionalLight>
       </>
@@ -132,7 +107,7 @@ export default function App() {
     const selectedColor0 = snap.selectedColor0 || snap.colors[0];
     const selectedColor2 = snap.selectedColor2 || snap.colors1[0];
 
-    const { nodes, materials } = useGLTF('./models/libreta090823-1.glb');
+    const { nodes, materials } = useGLTF('./models/libreta140823.glb');
     // Load the wafer texture
 
     useFrame((state, delta) => {
@@ -201,7 +176,7 @@ export default function App() {
               castShadow
               receiveShadow
               geometry={
-                nodes['Hojas(A52FF521-4CE0-45A5-BBB4-5174DAD361D2)'].geometry
+                nodes['Hojas(4676884E-6E07-4763-BC75-8E648863D826)'].geometry
               }
               material={materials.Material_1}
               material-color={snap.items.Material_1}
@@ -210,7 +185,7 @@ export default function App() {
               castShadow
               receiveShadow
               geometry={
-                nodes['Front(077A05E9-2BD8-4B62-9B01-3387C604942A)'].geometry
+                nodes['Tapa(079AAA22-C889-4CD0-A428-A882861B129B)'].geometry
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
@@ -220,7 +195,7 @@ export default function App() {
               castShadow
               receiveShadow
               geometry={
-                nodes['Front(78DF5E49-7C38-4F8F-A4C5-0D7C24FFB800)'].geometry
+                nodes['Tapa(543E714D-DDAB-4D9D-A083-DD8B14EC65D5)'].geometry
               }
               material={materials.Material_0}
               material-color={snap.items.Material_0}
@@ -504,7 +479,7 @@ export default function App() {
           <Lights />
         </Center>
         <OrbitControls
-          minPolarAngle={-Math.PI}
+          minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
           enablePan={false}
           enableZoom={true}
