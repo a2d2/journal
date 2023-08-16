@@ -440,19 +440,6 @@ export default function App() {
         {/* From udemy-shirt */}
         <section key="custom3">
           <div className="customizer">
-            {/* <div className="decals">
-              <div className="decals--container">
-                {snap.decals.map((decal) => (
-                  <div
-                    key={decal}
-                    className="decal"
-                    onClick={() => (state.selectedDecal = decal)}
-                  >
-                    <img src={decal + '_thumb.png'} alt="brand" />
-                  </div>
-                ))}
-              </div>
-            </div> */}
             <button
               className="share"
               style={{ background: '#789D4A' }}
@@ -507,7 +494,7 @@ export default function App() {
           minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
           enablePan={false}
-          enableZoom={true}
+          enableZoom={false}
         />
         {/* <Stats /> */}
       </Canvas>
