@@ -453,7 +453,22 @@ export default function App() {
                 ))}
               </div>
             </div> */}
-            <button className="share" style={{ background: '#789D4A' }}>
+            <button
+              className="share"
+              style={{ background: '#789D4A' }}
+              onClick={() => {
+                const link = document.createElement('a');
+                link.setAttribute('download', 'canvas.png');
+                link.setAttribute(
+                  'href',
+                  document
+                    .querySelector('canvas')
+                    .toDataURL('image/png')
+                    .replace('image/png', 'image/octet-stream')
+                );
+                link.click();
+              }}
+            >
               DOWNLOAD
               <AiFillCamera size="1.3em" />
             </button>
@@ -473,7 +488,11 @@ export default function App() {
 
   return (
     <>
-      <Canvas shadows camera={{ position: [0.3, -2, 3], fov: 45 }}>
+      <Canvas
+        shadows
+        gl={{ preserveDrawingBuffer: true }}
+        camera={{ position: [0.3, -2, 3], fov: 45 }}
+      >
         {/* <axesHelper args={[1]} /> */}
         <ambientLight intensity={0.5} />
         {/* <Environment preset="city" /> */}
