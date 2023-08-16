@@ -5,6 +5,7 @@ import download from './download.png';
 import book from './book.png';
 import monitor from './monitor.png';
 import notepad from './notepad.png';
+import roundjournal from './roundjournal.png';
 
 import logoShirt from './logo-tshirt.png';
 import stylishShirt from './stylish-tshirt.png';
@@ -19,4 +20,5 @@ export {
   book,
   monitor,
   notepad,
+  roundjournal,
 };

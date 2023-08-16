@@ -8,12 +8,13 @@ import {
   monitor,
   notepad,
   download,
+  roundjournal,
 } from '../assets';
 
 export const EditorTabs = [
   {
     name: 'colorpicker',
-    icon: swatch,
+    icon: roundjournal, //swatch
   },
 
   // {

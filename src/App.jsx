@@ -436,9 +436,11 @@ export default function App() {
             ))}
           </motion.div>
         </AnimatePresence>
+
+        {/* From udemy-shirt */}
         <section key="custom3">
           <div className="customizer">
-            <div className="decals">
+            {/* <div className="decals">
               <div className="decals--container">
                 {snap.decals.map((decal) => (
                   <div
@@ -450,7 +452,7 @@ export default function App() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
             <button className="share" style={{ background: '#789D4A' }}>
               DOWNLOAD
               <AiFillCamera size="1.3em" />
