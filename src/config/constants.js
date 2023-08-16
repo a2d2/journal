@@ -7,6 +7,7 @@ import {
   book,
   monitor,
   notepad,
+  download,
 } from '../assets';
 
 export const EditorTabs = [
@@ -52,6 +53,10 @@ export const FilterTabs = [
   {
     name: 'stylishShirt',
     icon: stylishShirt,
+  },
+  {
+    name: 'download',
+    icon: download,
   },
 ];
 
