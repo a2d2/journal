@@ -18,6 +18,7 @@ import {
   AiOutlineShopping,
   AiFillCamera,
   AiOutlineArrowLeft,
+  AiFillMail,
 } from 'react-icons/ai';
 import { proxy, useSnapshot } from 'valtio';
 import { download } from './assets';
@@ -293,6 +294,7 @@ export default function App() {
       logoShirt: true,
       stylishShirt: false,
     });
+    const [openMail, setOpenMail] = useState(false);
 
     //show tab content depending on the activeTab
     const generateTabContent = () => {
@@ -361,6 +363,16 @@ export default function App() {
       });
     };
 
+    const handleOpenMail = () => {
+      const subject = encodeURIComponent('Subject of the email');
+      const body = encodeURIComponent('Body of the email');
+
+      const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+
+      // Open the mail client by setting the window location to the mailto link
+      window.location.href = mailtoLink;
+    };
+
     // const decals = ['223', 'three2', 'wall'];
 
     return (
@@ -412,7 +424,7 @@ export default function App() {
             <button
               className="absolute z-10 top-5 right-5"
               style={{ background: '#789D4A' }}
-              onClick={() => (state.intro = true)} // BACK PAGE change to email SEND button
+              onClick={handleOpenMail} // BACK PAGE change to email SEND button
             >
               E-MAIL
               <AiOutlineArrowLeft size="1.3em" />
