@@ -11,6 +11,7 @@ import {
   Center,
   AccumulativeShadows,
   RandomizedLight,
+  Html,
 } from '@react-three/drei';
 
 import {
@@ -252,6 +253,23 @@ export default function App() {
             </mesh>
           </group>
         </group>
+        {/* Label for Material_0 */}
+        {hovered === 'Material_0' && (
+          <Html position={[0, 0, 0]}>
+            <div className="hover-label">
+              Click to select color from palette
+            </div>
+          </Html>
+        )}
+
+        {/* Label for Material_2 */}
+        {hovered === 'Material_2' && (
+          <Html position={[0, 0, 0]}>
+            <div className="hover-label">
+              Click to select color from palette
+            </div>
+          </Html>
+        )}
       </group>
     );
   }
