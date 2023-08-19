@@ -364,10 +364,15 @@ export default function App() {
     };
 
     const handleOpenMail = () => {
-      const subject = encodeURIComponent('Subject of the email');
-      const body = encodeURIComponent('Body of the email');
+      const toAddress = 'paul@traveldiaryshop.com'; // Fixed email address
+      const subject = encodeURIComponent(
+        'Model to be printed/quoted - Please affix your DOWNLOADED IMAGE to this mail prior to sending it '
+      );
+      const body = encodeURIComponent(
+        'Please affix your DOWNLOADED IMAGE to this mail prior to sending it. Do not forget to add high resolution icons and images. Someone from TRAVEL DIARY will contact you soon to prepare a quote and discuss details in case is needed. Thanks for prefering our services. Best Regards '
+      );
 
-      const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:${toAddress}?subject=${subject}&body=${body}`;
 
       // Open the mail client by setting the window location to the mailto link
       window.location.href = mailtoLink;
