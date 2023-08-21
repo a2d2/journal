@@ -42,88 +42,6 @@ canvas {
   width: 90px !important;
   height: 90px !important;
 }
-/* INTRO */
-
-/* .container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 40px;
-  align-items: center;
-  position: fixed;
-}
-
-header p {
-  font-weight: bold;
-  font-size: 0.8rem;
-  transition: all 1.2s ease-out;
-}
-
-header p.hidden {
-  opacity: 0;
-}
-
-section {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-}
-
-.section--container {
-  margin-top: 5vh;
-  margin-left: 5vw;
-}
-
-.section--container.hidden {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.section--container h1 {
-  font-weight: 900;
-  font-size: 16vw;
-  letter-spacing: -6px;
-  font-style: italic;
-  width: 30%;
-  line-height: 15vh;
-  font-family: 'Nunito Sans', sans-serif;
-}
-
-.support--content {
-  position: relative;
-  top: -25%;
-  left: 300px;
-}
-
-.support--content p {
-  width: 350px;
-  margin-bottom: 48px;
-  line-height: 1.5rem;
-}
-
-.bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -100;
-} */
 
 button {
   background-color: #22db66;
@@ -320,4 +238,15 @@ input[type='file'] {
 
 .sketch-picker > div:nth-child(3) {
   display: none !important;
+}
+
+/* HOVER MESSAGES */
+
+.hover-label {
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap; /* Para evitar el salto de línea */
 }

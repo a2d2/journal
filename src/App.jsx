@@ -255,7 +255,7 @@ export default function App() {
         </group>
         {/* Label for Material_0 */}
         {hovered === 'Material_0' && (
-          <Html position={[0, 0, 0]}>
+          <Html position={[-0.6, -0.1, 0]}>
             <div className="hover-label">
               Click to select color from palette
             </div>
@@ -264,9 +264,9 @@ export default function App() {
 
         {/* Label for Material_2 */}
         {hovered === 'Material_2' && (
-          <Html position={[0, 0, 0]}>
+          <Html position={[0, 1.5, 0]}>
             <div className="hover-label">
-              Click to select color from palette
+              Click elastic band select color from palette
             </div>
           </Html>
         )}
