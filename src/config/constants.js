@@ -12,10 +12,10 @@ import {
 } from '../assets';
 
 export const EditorTabs = [
-  {
-    name: 'colorpicker',
-    icon: roundjournal, //swatch
-  },
+  // {
+  //   name: 'colorpicker',
+  //   icon: roundjournal, //swatch
+  // },
 
   // {
   //   name: 'stylishShirt',

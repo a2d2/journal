@@ -123,7 +123,7 @@ export default function App() {
     const selectedColor2 = snap.selectedColor2 || snap.colors1[0];
 
     const { nodes, materials } = useGLTF('./models/libreta140823.glb');
-    // Load the wafer texture
+    const [activeTab, setActiveTab] = useState(null);
 
     useFrame((state, delta) => {
       if (selectedMaterialName0 === 'Material_0') {
@@ -153,7 +153,7 @@ export default function App() {
           setHovered(e.object.material.name);
         }}
         onPointerOut={(e) => {
-          e.intersections.length === 0 && setHovered(null);
+          // e.intersections.length === 0 && setHovered(null);
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -169,6 +169,9 @@ export default function App() {
             state.selectedMaterialName0 = null; // Deselect Material_0 when selecting Material_2
             setSelectedMaterialName2(clickedMaterialName);
             setSelectedMaterialName0(null); // Deselect Material_0 when selecting Material_2
+          }
+          if (clickedMaterialName === 'Material_0') {
+            setActiveTab('colorpicker'); // Activate the color picker tab
           }
         }}
       >
@@ -255,20 +258,28 @@ export default function App() {
         </group>
         {/* Label for Material_0 */}
         {hovered === 'Material_0' && (
-          <Html position={[-0.6, -0.1, 0]}>
-            <div className="hover-label">
-              Click to select color from palette
-            </div>
-          </Html>
+          <>
+            <Html position={[-0.1, 0, 0]}>
+              <div className="hover-label">Click model and select color</div>
+            </Html>
+            <Html position={[0.4, 0.2, 0]}>
+              <ColorPicker />
+            </Html>
+          </>
         )}
 
         {/* Label for Material_2 */}
         {hovered === 'Material_2' && (
-          <Html position={[0, 1.5, 0]}>
-            <div className="hover-label">
-              Click elastic band select color from palette
-            </div>
-          </Html>
+          <>
+            <Html position={[-0.1, 0, 0]}>
+              <div className="hover-label">
+                Click elastic band and select color
+              </div>
+            </Html>
+            <Html position={[0.4, 0.2, 0]}>
+              <ColorPicker Material_2 />
+            </Html>
+          </>
         )}
       </group>
     );
