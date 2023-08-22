@@ -539,6 +539,8 @@ export default function App() {
         <OrbitControls
           minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
+          minAzimuthAngle={-Math.PI / 4} // Limit rotation to 90 degrees to the left
+          maxAzimuthAngle={Math.PI / 4}
           enablePan={false}
           enableZoom={false}
         />
