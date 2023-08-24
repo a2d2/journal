@@ -55,36 +55,36 @@ export default function App() {
     const directionalRef = useRef();
     const lightHelperRef = useRef(); // Helper mesh to visualize the light direction
 
-    useControls('Directional Light', {
-      visible: {
-        value: true,
-        onChange: (v) => {
-          directionalRef.current.visible = v;
-        },
-      },
-      position: {
-        x: -1.5,
-        y: 0.8,
-        z: 2,
-        onChange: (v) => {
-          directionalRef.current.position.copy(v);
-        },
-      },
-      color: {
-        value: 'white',
-        onChange: (v) => {
-          directionalRef.current.color = new THREE.Color(v);
-        },
-      },
-      intensity: {
-        value: 1, // Default intensity value
-        min: 0, // Minimum intensity value
-        max: 2, // Maximum intensity value
-        onChange: (v) => {
-          directionalRef.current.intensity = v;
-        },
-      },
-    });
+    // useControls('Directional Light', {
+    //   visible: {
+    //     value: true,
+    //     onChange: (v) => {
+    //       directionalRef.current.visible = v;
+    //     },
+    //   },
+    //   position: {
+    //     x: -1.5,
+    //     y: 0.8,
+    //     z: 2,
+    //     onChange: (v) => {
+    //       directionalRef.current.position.copy(v);
+    //     },
+    //   },
+    //   color: {
+    //     value: 'white',
+    //     onChange: (v) => {
+    //       directionalRef.current.color = new THREE.Color(v);
+    //     },
+    //   },
+    //   intensity: {
+    //     value: 1, // Default intensity value
+    //     min: 0, // Minimum intensity value
+    //     max: 2, // Maximum intensity value
+    //     onChange: (v) => {
+    //       directionalRef.current.intensity = v;
+    //     },
+    //   },
+    // });
     useEffect(() => {
       const lightHelperGeometry = new THREE.ConeGeometry(0.2, 0.5, 16);
       const lightHelperMaterial = new THREE.MeshBasicMaterial({
@@ -103,6 +103,8 @@ export default function App() {
         <directionalLight
           ref={directionalRef}
           intensity={0.5}
+          position={new THREE.Vector3(-1.5, 0.8, 2)}
+          color={new THREE.Color('white')}
         ></directionalLight>
       </>
     );
@@ -260,7 +262,8 @@ export default function App() {
         {hovered === 'Material_0' && (
           <>
             <Html position={[-0.1, 0, 0]}>
-              <div className="hover-label">Click model and select color</div>
+              <div className="hover-label"></div>
+              {/* <div className="hover-label">Click model and select color</div> */}
             </Html>
             <Html position={[0.4, 0.2, 0]}>
               <ColorPicker />
@@ -272,9 +275,10 @@ export default function App() {
         {hovered === 'Material_2' && (
           <>
             <Html position={[-0.1, 0, 0]}>
-              <div className="hover-label">
+              <div className="hover-label"></div>
+              {/* <div className="hover-label">
                 Click elastic band and select color
-              </div>
+              </div> */}
             </Html>
             <Html position={[0.4, 0.2, 0]}>
               <ColorPicker Material_2 />
