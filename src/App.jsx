@@ -528,7 +528,7 @@ export default function App() {
       <Canvas
         shadows
         gl={{ preserveDrawingBuffer: true }}
-        camera={{ position: [0.3, -2, 3], fov: 45 }}
+        camera={{ position: [0.3, -2, 3], fov: 50 }}
       >
         {/* <axesHelper args={[1]} /> */}
         <ambientLight intensity={0.5} />
