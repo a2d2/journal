@@ -264,3 +264,20 @@ input[type='file'] {
 .adjust-button:hover {
   background: #617e39;
 }
+
+.hover-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  color: white;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 1;
+  width: 160px; /* Adjust width as needed */
+  text-align: center;
+  line-height: 1.5;
+}

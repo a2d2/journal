@@ -192,9 +192,13 @@ export default function App() {
         dispose={null}
         onPointerOver={(e) => {
           setHovered(e.object.material.name);
+          if (e.object.material.name === 'Material_0') {
+            setHovered('logoDecal');
+          }
         }}
         onPointerOut={(e) => {
-          // e.intersections.length === 0 && setHovered(null);
+          e.intersections.length === 0 && setHovered(null);
+          // setHovered(null);
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -294,6 +298,13 @@ export default function App() {
                   depthWrite={true}
                 />
               )}
+              <Html position={[2, 0, 100]} zIndexRange={[0, 0]}>
+                {hovered === 'logoDecal' && (
+                  <div className="hover-message">
+                    Use arrow keys to move image
+                  </div>
+                )}
+              </Html>
             </mesh>
           </group>
         </group>
