@@ -6,9 +6,11 @@ import book from './book.png';
 import monitor from './monitor.png';
 import notepad from './notepad.png';
 import roundjournal from './roundjournal.png';
-
+import logotshirt1 from './logotshirt1.png';
 import logoShirt from './logo-tshirt.png';
 import stylishShirt from './stylish-tshirt.png';
+import colorpick from './colorpick.png';
+import file1 from './file1.png';
 
 export {
   ai,
@@ -21,4 +23,7 @@ export {
   monitor,
   notepad,
   roundjournal,
+  colorpick,
+  file1,
+  logotshirt1,
 };

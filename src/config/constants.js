@@ -9,12 +9,15 @@ import {
   notepad,
   download,
   roundjournal,
+  colorpick,
+  file1,
+  logotshirt1,
 } from '../assets';
 
 export const EditorTabs = [
   {
     name: 'colorpicker',
-    icon: roundjournal, //swatch
+    icon: colorpick, //swatch
   },
 
   // {
@@ -23,7 +26,7 @@ export const EditorTabs = [
   // },
   {
     name: 'filepicker',
-    icon: fileIcon,
+    icon: file1,
   },
   // {
   //   name: 'logoShirt',
@@ -49,7 +52,7 @@ export const EditorTabs1 = [
 export const FilterTabs = [
   {
     name: 'logoShirt',
-    icon: logoShirt,
+    icon: logotshirt1,
   },
   // {
   //   name: 'stylishShirt',

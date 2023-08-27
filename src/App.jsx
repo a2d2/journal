@@ -232,9 +232,14 @@ export default function App() {
               }
               material={materials.Material_2}
               material-color={snap.items.Material_2}
-              // material-metalness={0}
-              // material-refractionRadio={0.5}
             />
+            <Html position={[25, 0, 190]} zIndexRange={[0, 0]}>
+              {hovered === 'logoDecal' && (
+                <div className="hover-message">
+                  click elastic band and select color from color picker
+                </div>
+              )}
+            </Html>
             <mesh
               castShadow
               receiveShadow
@@ -268,6 +273,13 @@ export default function App() {
               // material-refractionRadio={0.5}
               // material-transparent={false}
             >
+              <Html position={[10, 0, 10]} zIndexRange={[0, 0]}>
+                {hovered === 'logoDecal' && (
+                  <div className="hover-message">
+                    click lapel and select color from color picker
+                  </div>
+                )}
+              </Html>
               {/* {journal} */}
               {/* {snap.isFullTexture && (
                 <Decal
@@ -298,7 +310,7 @@ export default function App() {
                   depthWrite={true}
                 />
               )}
-              <Html position={[2, 0, 100]} zIndexRange={[0, 0]}>
+              <Html position={[2, 0, 80]} zIndexRange={[0, 0]}>
                 {hovered === 'logoDecal' && (
                   <div className="hover-message">
                     Use arrow keys to move image
@@ -308,33 +320,6 @@ export default function App() {
             </mesh>
           </group>
         </group>
-        {/* Label for Material_0 */}
-        {hovered === 'Material_0' && (
-          <>
-            <Html position={[-0.1, 0, 0]}>
-              <div className="hover-label"></div>
-              {/* <div className="hover-label">Click model and select color</div> */}
-            </Html>
-            <Html position={[0.4, 0.2, 0]}>
-              <ColorPicker />
-            </Html>
-          </>
-        )}
-
-        {/* Label for Material_2 */}
-        {hovered === 'Material_2' && (
-          <>
-            <Html position={[-0.1, 0, 0]}>
-              <div className="hover-label"></div>
-              {/* <div className="hover-label">
-                Click elastic band and select color
-              </div> */}
-            </Html>
-            <Html position={[0.4, 0.2, 0]}>
-              <ColorPicker Material_2 />
-            </Html>
-          </>
-        )}
       </group>
     );
   }
