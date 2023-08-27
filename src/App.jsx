@@ -126,6 +126,7 @@ export default function App() {
 
     const { nodes, materials } = useGLTF('./models/libreta140823.glb');
     const [activeTab, setActiveTab] = useState(null);
+    const [decalPosition, setDecalPosition] = useState([2, 0, 100]); // Initial position
 
     useFrame((state, delta) => {
       if (selectedMaterialName0 === 'Material_0') {
@@ -142,6 +143,44 @@ export default function App() {
         state.colors = snap.colors1; // Set the color palette to colors1
       }
     });
+
+    useEffect(() => {
+      const handleKeyDown = (event) => {
+        const step = 1; // You can adjust the step size here
+
+        if (event.key === 'ArrowUp') {
+          setDecalPosition((prevPosition) => [
+            prevPosition[0],
+            prevPosition[1],
+            prevPosition[2] + step,
+          ]);
+        } else if (event.key === 'ArrowDown') {
+          setDecalPosition((prevPosition) => [
+            prevPosition[0],
+            prevPosition[1],
+            prevPosition[2] - step,
+          ]);
+        } else if (event.key === 'ArrowLeft') {
+          setDecalPosition((prevPosition) => [
+            prevPosition[0] - step,
+            prevPosition[1],
+            prevPosition[2],
+          ]);
+        } else if (event.key === 'ArrowRight') {
+          setDecalPosition((prevPosition) => [
+            prevPosition[0] + step,
+            prevPosition[1],
+            prevPosition[2],
+          ]);
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, []);
 
     console.log(materials);
 
@@ -226,7 +265,7 @@ export default function App() {
               // material-transparent={false}
             >
               {/* {journal} */}
-              {snap.isFullTexture && (
+              {/* {snap.isFullTexture && (
                 <Decal
                   //debug // Makes "bounding box" of the decal visible
                   position={[3, 2, 100]}
@@ -239,12 +278,12 @@ export default function App() {
                   depthTest={false}
                   depthWrite={true}
                 />
-              )}
+              )} */}
               {/* logo */}
               {snap.isLogoTexture && (
                 <Decal
                   //debug // Makes "bounding box" of the decal visible
-                  position={[3, 2, 100]}
+                  position={decalPosition}
                   rotation={[Math.PI / 2, 0, 0]}
                   scale={(30, 30, 30)}
                   // transparent={false}

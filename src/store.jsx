@@ -31,6 +31,7 @@ const state = proxy({
   isFullTexture: false,
   logoDecal: './threejs.png',
   fullDecal: './threejs.png',
+  uploadedFileName: 'abc',
 });
 
 export { state };
