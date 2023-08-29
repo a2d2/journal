@@ -20,6 +20,9 @@ import {
   AiFillCamera,
   AiOutlineArrowLeft,
   AiFillMail,
+  AiOutlineArrowUp,
+  AiOutlineArrowDown,
+  AiOutlineArrowRight,
 } from 'react-icons/ai';
 import { proxy, useSnapshot } from 'valtio';
 import { download } from './assets';
@@ -49,6 +52,7 @@ import { useControls } from 'leva';
 import { DirectionalLight } from 'three';
 
 export default function App() {
+  const [decalPosition, setDecalPosition] = useState([2, 0, 100]); // Initial position
   // Position and intensity values can be adjusted as needed
 
   function Lights() {
@@ -126,7 +130,7 @@ export default function App() {
 
     const { nodes, materials } = useGLTF('./models/libreta140823.glb');
     const [activeTab, setActiveTab] = useState(null);
-    const [decalPosition, setDecalPosition] = useState([2, 0, 100]); // Initial position
+    // const [decalPosition, setDecalPosition] = useState([2, 0, 100]); // Initial position
 
     useFrame((state, delta) => {
       if (selectedMaterialName0 === 'Material_0') {
@@ -588,6 +592,58 @@ export default function App() {
       {/* <Picker /> */}
 
       <Customizer />
+
+      {/* Arrow Icons */}
+      <div className="arrow-icons">
+        <div
+          className="arrow-icon"
+          onClick={() =>
+            setDecalPosition((prevPosition) => [
+              prevPosition[0],
+              prevPosition[1],
+              prevPosition[2] + 1,
+            ])
+          }
+        >
+          <AiOutlineArrowUp />
+        </div>
+        <div
+          className="arrow-icon"
+          onClick={() =>
+            setDecalPosition((prevPosition) => [
+              prevPosition[0],
+              prevPosition[1],
+              prevPosition[2] - 1,
+            ])
+          }
+        >
+          <AiOutlineArrowDown />
+        </div>
+        <div
+          className="arrow-icon"
+          onClick={() =>
+            setDecalPosition((prevPosition) => [
+              prevPosition[0] - 1,
+              prevPosition[1],
+              prevPosition[2],
+            ])
+          }
+        >
+          <AiOutlineArrowLeft />
+        </div>
+        <div
+          className="arrow-icon"
+          onClick={() =>
+            setDecalPosition((prevPosition) => [
+              prevPosition[0] + 1,
+              prevPosition[1],
+              prevPosition[2],
+            ])
+          }
+        >
+          <AiOutlineArrowRight />
+        </div>
+      </div>
     </>
   );
 }

@@ -281,3 +281,51 @@ input[type='file'] {
   text-align: center;
   line-height: 1.5;
 }
+
+/* .arrow-icon {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: #8ccd31;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.arrow-icon:hover {
+  background-color: rgba(255, 255, 255, 1);
+} */
+
+.canvas-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.arrow-icons {
+  position: absolute;
+  top: 50%;
+  right: 20px; /* Adjust as needed */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+}
+
+.arrow-icon {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: #8ccd31;
+  border-radius: 50%;
+  margin-bottom: 10px; /* Adjust as needed */
+  transition: background-color 0.3s;
+}
+
+.arrow-icon:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
