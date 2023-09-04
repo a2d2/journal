@@ -106,7 +106,7 @@ export default function App() {
       <>
         <directionalLight
           ref={directionalRef}
-          intensity={0.5}
+          intensity={0.2}
           position={new THREE.Vector3(-1.5, 0.8, 2)}
           color={new THREE.Color('white')}
         ></directionalLight>
@@ -455,11 +455,11 @@ export default function App() {
     return (
       <>
         {/* LEFT TABS */}
-        <AnimatePresence>
+        <AnimatePresence key="custom1">
           <motion.div
-            key="custom"
+            key="custom2"
             className="absolute top-0 left-0 z-10"
-            {...slideAnimation('left')}
+            // {...slideAnimation('left')}
           >
             <div className="flex items-center min-h-screen">
               <div className="editortabs-container tabs">
@@ -478,7 +478,7 @@ export default function App() {
 
           {/* RIGHT TABS */}
           {/* <motion.div
-            key="custom1"
+            key="custom11"
             className="absolute top-0 right-0 z-10"
             {...slideAnimation('right')}
           >
@@ -499,20 +499,21 @@ export default function App() {
           {/* E-MAIL BUTTON */}
           <motion.div>
             <button
-              className="absolute z-10 top-5 right-5"
+              key="custom3"
+              className="absolute z-10 top-20 right-5"
               style={{ background: '#789D4A' }}
               onClick={handleOpenMail} // BACK PAGE change to email SEND button
             >
               E-MAIL
-              <AiOutlineArrowLeft size="1.3em" />
+              <AiOutlineArrowRight size="1.3em" />
             </button>
           </motion.div>
 
           {/* BOTTOM TABS - FILTER TABS */}
           <motion.div
-            key="custom2"
+            key="custom4"
             className="filtertabs-container"
-            {...slideAnimation('up')}
+            // {...slideAnimation('up')}
           >
             {FilterTabs.map((tab) => (
               <Tab
@@ -524,31 +525,31 @@ export default function App() {
               />
             ))}
           </motion.div>
-        </AnimatePresence>
 
-        {/* From udemy-shirt */}
-        <section key="custom3">
-          <div className="customizer">
-            <button
-              className="share"
-              style={{ background: '#789D4A' }}
-              onClick={() => {
-                const link = document.createElement('a');
-                link.setAttribute('download', 'canvas.png');
-                link.setAttribute(
-                  'href',
-                  document
-                    .querySelector('canvas')
-                    .toDataURL('image/png')
-                    .replace('image/png', 'image/octet-stream')
-                );
-                link.click();
-              }}
-            >
-              DOWNLOAD
-              <AiFillCamera size="1.3em" />
-            </button>
-            {/* <button
+          {/* DOWNLOAD BUTTON */}
+          <motion.div key="custom5">
+            <section key="custom6">
+              <div className="customizer">
+                <button
+                  className="share"
+                  style={{ background: '#789D4A' }}
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.setAttribute('download', 'canvas.png');
+                    link.setAttribute(
+                      'href',
+                      document
+                        .querySelector('canvas')
+                        .toDataURL('image/png')
+                        .replace('image/png', 'image/octet-stream')
+                    );
+                    link.click();
+                  }}
+                >
+                  DOWNLOAD
+                  <AiFillCamera size="1.3em" />
+                </button>
+                {/* <button
               className="exit"
               style={{ background: '#789D4A' }}
               onClick={() => (state.intro = true)}
@@ -556,8 +557,64 @@ export default function App() {
               GO BACK
               <AiOutlineArrowLeft size="1.3em" />
             </button> */}
-          </div>
-        </section>
+              </div>
+            </section>
+          </motion.div>
+
+          {/* Arrow Icons */}
+          <motion.div key="custom7">
+            <div className="arrow-icons">
+              <div
+                className="arrow-icon"
+                onClick={() =>
+                  setDecalPosition((prevPosition) => [
+                    prevPosition[0],
+                    prevPosition[1],
+                    prevPosition[2] + 3,
+                  ])
+                }
+              >
+                <AiOutlineArrowUp />
+              </div>
+              <div
+                className="arrow-icon"
+                onClick={() =>
+                  setDecalPosition((prevPosition) => [
+                    prevPosition[0],
+                    prevPosition[1],
+                    prevPosition[2] - 3,
+                  ])
+                }
+              >
+                <AiOutlineArrowDown />
+              </div>
+              <div
+                className="arrow-icon"
+                onClick={() =>
+                  setDecalPosition((prevPosition) => [
+                    prevPosition[0] - 3,
+                    prevPosition[1],
+                    prevPosition[2],
+                  ])
+                }
+              >
+                <AiOutlineArrowLeft />
+              </div>
+              <div
+                className="arrow-icon"
+                onClick={() =>
+                  setDecalPosition((prevPosition) => [
+                    prevPosition[0] + 3,
+                    prevPosition[1],
+                    prevPosition[2],
+                  ])
+                }
+              >
+                <AiOutlineArrowRight />
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </>
     );
   }
@@ -585,65 +642,13 @@ export default function App() {
           minAzimuthAngle={-Math.PI / 4} // Limit rotation to 90 degrees to the left
           maxAzimuthAngle={Math.PI / 4}
           enablePan={false}
-          enableZoom={false}
+          enableZoom={true}
         />
         {/* <Stats /> */}
       </Canvas>
       {/* <Picker /> */}
 
       <Customizer />
-
-      {/* Arrow Icons */}
-      <div className="arrow-icons">
-        <div
-          className="arrow-icon"
-          onClick={() =>
-            setDecalPosition((prevPosition) => [
-              prevPosition[0],
-              prevPosition[1],
-              prevPosition[2] + 1,
-            ])
-          }
-        >
-          <AiOutlineArrowUp />
-        </div>
-        <div
-          className="arrow-icon"
-          onClick={() =>
-            setDecalPosition((prevPosition) => [
-              prevPosition[0],
-              prevPosition[1],
-              prevPosition[2] - 1,
-            ])
-          }
-        >
-          <AiOutlineArrowDown />
-        </div>
-        <div
-          className="arrow-icon"
-          onClick={() =>
-            setDecalPosition((prevPosition) => [
-              prevPosition[0] - 1,
-              prevPosition[1],
-              prevPosition[2],
-            ])
-          }
-        >
-          <AiOutlineArrowLeft />
-        </div>
-        <div
-          className="arrow-icon"
-          onClick={() =>
-            setDecalPosition((prevPosition) => [
-              prevPosition[0] + 1,
-              prevPosition[1],
-              prevPosition[2],
-            ])
-          }
-        >
-          <AiOutlineArrowRight />
-        </div>
-      </div>
     </>
   );
 }

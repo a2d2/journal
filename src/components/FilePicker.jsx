@@ -13,19 +13,26 @@ const FilePicker = ({ file, setFile, readFile }) => {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <label htmlFor="file-upload" className="filepicker-label">
-          Click to upload file
+          SELECT FILE
         </label>
-        <p className="mt-2 text-gray-500 text-xs truncate">
+        <p className="mt-2 text-black-900 text-xs truncate">
           {' '}
-          {file === '' ? 'Please select a file' : file.name}
+          {file === '' ? (
+            <>
+              File type accepted: <br />
+              svg+xml, png, jpg
+            </>
+          ) : (
+            file.name
+          )}
         </p>
       </div>
       <div className="mt-4 flex flex-wrap gap-3">
         <CustomButton
           type="outline"
-          title="click to add logo"
+          title="ADD IMAGE TO MODEL"
           handleClick={() => readFile('logo')}
-          customStyles="text-xs"
+          customStyles="bg-custom-green text-xs"
         />
         {/* <CustomButton
           type="filled"
