@@ -106,7 +106,7 @@ export default function App() {
       <>
         <directionalLight
           ref={directionalRef}
-          intensity={0.2}
+          intensity={0.5}
           position={new THREE.Vector3(-1.5, 0.8, 2)}
           color={new THREE.Color('white')}
         ></directionalLight>
@@ -374,7 +374,7 @@ export default function App() {
         case 'colorpicker':
           return <ColorPicker />;
         case 'stylishShirt':
-          return <ColorPicker Material_2 />;
+          return <AIPicker />;
         case 'filepicker':
           return (
             <FilePicker file={file} setFile={setFile} readFile={readFile} />
@@ -570,7 +570,7 @@ export default function App() {
                   setDecalPosition((prevPosition) => [
                     prevPosition[0],
                     prevPosition[1],
-                    prevPosition[2] + 3,
+                    prevPosition[2] + 1,
                   ])
                 }
               >
@@ -582,7 +582,7 @@ export default function App() {
                   setDecalPosition((prevPosition) => [
                     prevPosition[0],
                     prevPosition[1],
-                    prevPosition[2] - 3,
+                    prevPosition[2] - 1,
                   ])
                 }
               >
@@ -592,7 +592,7 @@ export default function App() {
                 className="arrow-icon"
                 onClick={() =>
                   setDecalPosition((prevPosition) => [
-                    prevPosition[0] - 3,
+                    prevPosition[0] - 1,
                     prevPosition[1],
                     prevPosition[2],
                   ])
@@ -604,7 +604,7 @@ export default function App() {
                 className="arrow-icon"
                 onClick={() =>
                   setDecalPosition((prevPosition) => [
-                    prevPosition[0] + 3,
+                    prevPosition[0] + 1,
                     prevPosition[1],
                     prevPosition[2],
                   ])

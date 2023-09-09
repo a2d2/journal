@@ -20,10 +20,10 @@ export const EditorTabs = [
     icon: colorpick, //swatch
   },
 
-  // {
-  //   name: 'stylishShirt',
-  //   icon: stylishShirt,
-  // },
+  {
+    name: 'stylishShirt',
+    icon: stylishShirt,
+  },
   {
     name: 'filepicker',
     icon: file1,

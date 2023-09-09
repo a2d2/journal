@@ -1,41 +1,32 @@
 import React from 'react';
-import CustomButton from './CustomButton';
+import { useSnapshot } from 'valtio';
+import { state } from '../store';
 
-const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit }) => {
+const ColorPicker = () => {
+  const snap = useSnapshot(state);
+  const selectedMaterialName = snap.selectedMaterialName2;
+  const colorPalette = snap.colors1;
+
+  const handleColorClick = (color) => {
+    if (selectedMaterialName === 'Material_0') {
+      state.selectedColor0 = color;
+    } else if (selectedMaterialName === 'Material_2') {
+      state.selectedColor2 = color;
+    }
+  };
+
   return (
-    <div className="aipicker-container">
-      <textarea
-        placeholder="Pregunta a la Inteligencia Artificial..."
-        rows={5}
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        className="aipicker-textarea"
-      />
-      <div className="flex flex-wrap gap-3">
-        {generatingImg ? (
-          <CustomButton
-            type="outline"
-            title="Preguntando a AI..."
-            customStyles="text-xs"
-          />
-        ) : (
-          <>
-            <CustomButton
-              type="outline"
-              title="Logo AI"
-              handleClick={() => handleSubmit('logo')}
-              customStyles="text-xs"
-            />
-            <CustomButton
-              type="filled"
-              title="Full AI"
-              handleClick={() => handleSubmit('full')}
-              customStyles="text-xs"
-            />
-          </>
-        )}
-      </div>
+    <div className="color-options">
+      {colorPalette.map((color) => (
+        <div
+          key={color}
+          className="circle"
+          style={{ background: color }}
+          onClick={() => handleColorClick(color)}
+        ></div>
+      ))}
     </div>
   );
 };
-export default AIPicker;
+
+export default ColorPicker;

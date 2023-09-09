@@ -4,10 +4,8 @@ import { state } from '../store';
 
 const ColorPicker = () => {
   const snap = useSnapshot(state);
-  const selectedMaterialName =
-    snap.selectedMaterialName0 || snap.selectedMaterialName2;
-  const colorPalette =
-    selectedMaterialName === 'Material_2' ? snap.colors1 : snap.colors;
+  const selectedMaterialName = snap.selectedMaterialName0;
+  const colorPalette = snap.colors;
 
   const handleColorClick = (color) => {
     if (selectedMaterialName === 'Material_0') {
