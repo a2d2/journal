@@ -23,6 +23,8 @@ import {
   AiOutlineArrowUp,
   AiOutlineArrowDown,
   AiOutlineArrowRight,
+  AiOutlinePlus,
+  AiOutlineMinus,
 } from 'react-icons/ai';
 import { proxy, useSnapshot } from 'valtio';
 import { download } from './assets';
@@ -53,7 +55,7 @@ import { DirectionalLight } from 'three';
 
 export default function App() {
   const [decalPosition, setDecalPosition] = useState([2, 0, 100]); // Initial position
-  // Position and intensity values can be adjusted as needed
+  const [logoScale, setLogoScale] = useState(30);
 
   function Lights() {
     const directionalRef = useRef();
@@ -130,7 +132,6 @@ export default function App() {
 
     const { nodes, materials } = useGLTF('./models/libreta140823.glb');
     const [activeTab, setActiveTab] = useState(null);
-    // const [decalPosition, setDecalPosition] = useState([2, 0, 100]); // Initial position
 
     useFrame((state, delta) => {
       if (selectedMaterialName0 === 'Material_0') {
@@ -305,7 +306,8 @@ export default function App() {
                   //debug // Makes "bounding box" of the decal visible
                   position={decalPosition}
                   rotation={[Math.PI / 2, 0, 0]}
-                  scale={(30, 30, 30)}
+                  scale={[logoScale, logoScale, logoScale]} // Aplicar la escala aquí
+                  //scale={(30, 30, 30)}
                   // transparent={false}
 
                   material-map={logoTexture}
@@ -611,6 +613,23 @@ export default function App() {
                 }
               >
                 <AiOutlineArrowRight />
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div key="custom8">
+            <div className="scale-icons">
+              <div
+                className="scale-icon"
+                onClick={() => setLogoScale((prevScale) => prevScale * 1.1)} // Aumentar la escala en un 10%
+              >
+                <AiOutlinePlus />
+              </div>
+              <div
+                className="scale-icon"
+                onClick={() => setLogoScale((prevScale) => prevScale * 0.9)} // Disminuir la escala en un 10%
+              >
+                <AiOutlineMinus />
               </div>
             </div>
           </motion.div>
