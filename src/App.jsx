@@ -336,7 +336,7 @@ export default function App() {
         temporal
         frames={60}
         alphaTest={0.65}
-        scale={20}
+        scale={200}
         rotation={[0, Math.PI, 0]}
         position={[0, -0.7, -0.7]}
       >
@@ -662,6 +662,8 @@ export default function App() {
           maxAzimuthAngle={Math.PI / 4}
           enablePan={false}
           enableZoom={true}
+          minDistance={3} // Minimum zoom distance
+          maxDistance={7} // Maximum zoom distance
         />
         {/* <Stats /> */}
       </Canvas>
